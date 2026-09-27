@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: repo-agent
+resources:
+  - application.yaml
+  - rayservice.yaml
+  - monitoring.yaml
+configMapGenerator:
+  - name: nginx-config
+    files: [nginx.conf]

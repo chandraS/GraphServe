@@ -1,0 +1,12 @@
+# Optional local CPU embeddings. Start explicitly; image downloads models on demand.
+services:
+  sie:
+    image: ghcr.io/superlinked/sie-server:latest-cpu-default
+    environment:
+      SIE_TELEMETRY_DISABLED: "1"
+    volumes: ["sie-cache:/app/.cache/huggingface"]
+  agent:
+    environment:
+      SIE_BASE_URL: http://sie:8080
+volumes:
+  sie-cache:

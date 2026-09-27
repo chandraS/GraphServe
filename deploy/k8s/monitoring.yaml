@@ -1,0 +1,41 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: agent
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: agent
+  endpoints:
+  - port: http
+    path: /metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gateway
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: gateway
+  endpoints:
+  - port: http
+    path: /metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: ray
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      component: ray
+  podMetricsEndpoints:
+  - port: metrics
+    path: /metrics

@@ -1,0 +1,21 @@
+applications:
+- name: qwen
+  route_prefix: /
+  import_path: ray.serve.llm:build_openai_app
+  args:
+    llm_configs:
+    - model_loading_config:
+        model_id: qwen-coder
+        model_source: Qwen/Qwen2.5-Coder-7B-Instruct
+      engine_kwargs:
+        dtype: bfloat16
+        tensor_parallel_size: 1
+        max_model_len: 8192
+        gpu_memory_utilization: 0.9
+        max_num_seqs: 8
+        enable_prefix_caching: false
+      deployment_config:
+        autoscaling_config:
+          min_replicas: 1
+          max_replicas: 1
+        max_ongoing_requests: 8

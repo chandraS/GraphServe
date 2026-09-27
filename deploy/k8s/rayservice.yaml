@@ -1,0 +1,90 @@
+apiVersion: ray.io/v1
+kind: RayService
+metadata:
+  name: repo-llm
+spec:
+  serveConfigV2: "applications:\n- name: qwen\n  route_prefix: /\n  import_path: ray.serve.llm:build_openai_app\n\
+    \  args:\n    llm_configs:\n    - model_loading_config:\n        model_id: qwen-coder\n\
+    \        model_source: Qwen/Qwen2.5-Coder-7B-Instruct\n      engine_kwargs:\n\
+    \        dtype: bfloat16\n        tensor_parallel_size: 1\n        max_model_len:\
+    \ 8192\n        gpu_memory_utilization: 0.9\n        max_num_seqs: 8\n       \
+    \ enable_prefix_caching: false\n      deployment_config:\n        autoscaling_config:\n\
+    \          min_replicas: 1\n          max_replicas: 1\n        max_ongoing_requests:\
+    \ 8\n"
+  rayClusterConfig:
+    rayVersion: 2.52.0
+    enableInTreeAutoscaling: false
+    headGroupSpec:
+      rayStartParams:
+        dashboard-host: 0.0.0.0
+        num-cpus: '0'
+        num-gpus: '0'
+        metrics-export-port: '8080'
+      template:
+        metadata:
+          labels:
+            component: ray
+        spec:
+          containers:
+          - name: ray-head
+            image: rayproject/ray-llm:2.52.0-py311-cu128
+            ports:
+            - name: metrics
+              containerPort: 8080
+            - name: gcs
+              containerPort: 6379
+            - name: dashboard
+              containerPort: 8265
+            - name: client
+              containerPort: 10001
+            - name: serve
+              containerPort: 8000
+            resources:
+              requests:
+                cpu: '2'
+                memory: 4Gi
+              limits:
+                cpu: '2'
+                memory: 4Gi
+          automountServiceAccountToken: false
+    workerGroupSpecs:
+    - groupName: gpu
+      replicas: 1
+      minReplicas: 1
+      maxReplicas: 1
+      rayStartParams:
+        num-gpus: '1'
+        metrics-export-port: '8080'
+      template:
+        metadata:
+          labels:
+            component: ray
+        spec:
+          containers:
+          - name: ray-worker
+            image: rayproject/ray-llm:2.52.0-py311-cu128
+            ports:
+            - name: metrics
+              containerPort: 8080
+            resources:
+              requests:
+                cpu: '4'
+                memory: 24Gi
+                nvidia.com/gpu: '1'
+              limits:
+                cpu: '8'
+                memory: 32Gi
+                nvidia.com/gpu: '1'
+            volumeMounts:
+            - name: shm
+              mountPath: /dev/shm
+            - name: hf-cache
+              mountPath: /home/ray/.cache/huggingface
+          automountServiceAccountToken: false
+          volumes:
+          - name: shm
+            emptyDir:
+              medium: Memory
+              sizeLimit: 4Gi
+          - name: hf-cache
+            emptyDir: {}
