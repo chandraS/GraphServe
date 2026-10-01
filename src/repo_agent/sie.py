@@ -1,15 +1,22 @@
 """Optional SIE embeddings; similarity ranking stays in the Python agent."""
+import asyncio
 import math
 import os
 import httpx
 
 
 async def rerank(question, evidence):
+    api_key = os.getenv("SIE_API_KEY")
+    headers = {"Authorization": "Bearer " + api_key} if api_key else {}
     async with httpx.AsyncClient(timeout=90) as client:
-        response = await client.post(os.environ["SIE_BASE_URL"].rstrip("/") + "/v1/embeddings",
-            headers={"Authorization": "Bearer " + os.getenv("SIE_API_KEY", "")},
-            json={"model": os.getenv("SIE_MODEL", "sentence-transformers/all-MiniLM-L6-v2"),
-                  "input": [question] + [e["text"] for e in evidence]})
+        for attempt in range(5):
+            response = await client.post(os.environ["SIE_BASE_URL"].rstrip("/") + "/v1/embeddings",
+                headers=headers,
+                json={"model": os.getenv("SIE_MODEL", "sentence-transformers/all-MiniLM-L6-v2"),
+                      "input": [question] + [e["text"] for e in evidence]})
+            if response.status_code != 503 or attempt == 4:
+                break
+            await asyncio.sleep(2 ** attempt)
         response.raise_for_status()
         rows = sorted(response.json()["data"], key=lambda r: r["index"])
     if [r["index"] for r in rows] != list(range(len(evidence) + 1)):

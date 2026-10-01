@@ -1,6 +1,9 @@
-# Repository understanding and change planning
+# GraphServe repository understanding agent
 
-A Python agent accepts a public GitHub repository URL and a **full 40-character commit SHA**, extracts a Graphify graph, retrieves related source, and returns cited explanations and change proposals. The scaffold never applies proposed changes or runs repository programs.
+GraphServe accepts a public GitHub repository URL and a full commit SHA, builds
+a Graphify code graph, retrieves and optionally SIE-reranks related source, and
+returns explanations and change proposals with commit-pinned citations. It does
+not execute repository code or apply proposed changes.
 
 ## Local development
 
@@ -13,47 +16,59 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Open http://localhost:8080/docs for the API, http://localhost:3000 for Grafana (local default admin/admin), and http://localhost:9090 for Prometheus. Compose defaults to **mock inference**, uses real Git/Graphify ingestion, and does not download Qwen weights. Graphify must be on PATH when running outside Docker. Alternatively:
+Local Compose uses mock inference while retaining real Git/Graphify ingestion.
+Open `http://localhost:8080/docs`, click **Authorize**, and enter
+`local-development-only` without a `Bearer` prefix. Swagger adds the prefix.
 
-```bash
-source .venv/bin/activate
-INFERENCE_MODE=mock AGENT_API_KEY=local-development-only uvicorn repo_agent.api:app --port 8080
-```
-
-In Swagger (`/docs`), click **Authorize**, enter only `local-development-only` (without the `Bearer` prefix), and click **Authorize**, then **Close**. Use your configured key if you changed it. Swagger adds the Authorization header automatically.
-
-Submit `POST /repositories` with `{"url":"https://github.com/OWNER/REPO","commit":"FULL_40_CHARACTER_SHA"}` and header `Authorization: Bearer local-development-only`. Use the returned `repository_id` in `POST /questions`: `{"repository_id":"...","question":"Explain the request path and propose adding caching"}`. Responses contain structured claims, proposals, limitations, and pinned GitHub line URLs. Mock answers are explicitly labeled and are not measured model results.
-
-```bash
-pytest -q
-kubectl kustomize deploy/k8s > /tmp/repo-agent-rendered.yaml
-```
+Submit `POST /repositories` with a GitHub URL and full 40-character SHA, then
+use its `repository_id` in `POST /questions`.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    U[User] --> N[nginx :8080]
+    U[User] --> N[nginx]
     N --> A[Python agent]
-    A --> G[Graphify relationships]
-    A --> B[Commit-pinned Git blobs]
-    A -. optional embeddings .-> S[SIE]
-    A --> I[nginx :8081 internal]
-    I --> W[Inference gateway]
-    W --> R[Ray Serve LLM]
-    R --> V[vLLM / Qwen Coder 7B BF16]
+    A --> G[Graphify and Git blobs]
+    A --> S[SIE embeddings]
+    A --> W[Inference gateway]
+    W --> R[Ray Serve router]
+    R --> V1[vLLM replica A]
+    R --> V2[vLLM replica B]
     A --> P[Prometheus]
     W --> P
     R --> P
     P --> F[Grafana]
 ```
 
-The agent owns tool execution, lexical seed search, one-hop dependency/impact traversal, source verification, and Qwen chat-template token counting. Context reserves 1,024 output tokens plus 128 safety tokens within an 8,192-token window. Only Git and Graphify subprocesses are used, without shell execution. Repository text is treated as untrusted model input. Unsupported/unknown citations fail closed. Source checks establish provenance and exact excerpt contents, **not semantic entailment**.
+The measured deployment uses one K3s control node and two A100 worker nodes,
+with one whole-GPU Qwen2.5-Coder-7B-Instruct BF16 replica per worker. Source IDs,
+blob contents and line ranges are verified; semantic entailment is not yet
+automatically scored.
 
-SIE is selected for embeddings, not the archived Superlinked vector framework and not Qwen generation. Set `SIE_BASE_URL`, `SIE_MODEL`, and optionally `SIE_API_KEY` to an existing SIE deployment. The adapter calls `/v1/embeddings` and ranks Graphify candidate excerpts by cosine similarity in Python. This initial adapter reranks candidates; it is not yet a persistent full-repository vector index. It has no silent fallback on SIE failure. See [SIE documentation](https://github.com/superlinked/sie). A separate optional CPU profile is provided in `compose.sie.yaml`; pin its image digest before reproducible evaluation.
+## Measured serving profiles
 
-## Deployment and status
+Configuration A uses default Ray routing with automatic prefix caching disabled.
+Configuration B enables automatic prefix caching and prefix-affinity routing.
+All 36 A requests succeeded; B timed out four concurrency-4 requests. The A/B
+evidence is under `benchmarks/`, and `submission.ipynb` regenerates its tables
+and charts.
 
-See [K3s deployment plan](docs/deployment.md), [assignment milestones](docs/assignment.md), and [validation record](docs/validation.md). No cloud resources were provisioned. The Kubernetes resources are a scaffold awaiting a real GPU environment, image publication/import, authentication secret, CRDs, and capacity validation.
+## Commands and documentation
 
-Current limits: public GitHub repositories only; synchronous bounded-time ingestion; one API process and one data volume; lexical/graph retrieval can miss relevant files; code-only Graphify skips semantic document extraction; no arbitrary execution, private-repo credentials, edit application, or multi-tenant isolation. For untrusted/public hosted ingestion, add isolated ingestion Jobs, repository disk quotas, request/job queues and per-user authorization before opening network access.
+```bash
+pytest -q
+kubectl kustomize deploy/k8s > /tmp/repo-agent-rendered.yaml
+```
+
+- `docs/deployment.md`: three-node setup and persistence.
+- `docs/three-node-prefix-routing.md`: model-worker topology and profiles.
+- `docs/benchmarking.md`: benchmark method and recorded results.
+- `docs/requirements-audit.md`: met, partial and open requirements.
+- `docs/validation.md`: local and live validation evidence.
+- `DESIGN.md`: model, KV and serving-design rationale.
+- `submission.ipynb`: reproducible evidence analysis.
+
+Current limitations include public repositories only, synchronous bounded-time
+ingestion, no multi-tenant admission control, no explicit per-worker gateway
+queue, non-streaming answers, and no semantic answer-quality score.

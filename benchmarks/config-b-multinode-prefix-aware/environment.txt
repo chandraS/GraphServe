@@ -1,0 +1,59 @@
+Thu Oct  1 04:34:03 UTC 2026
+NODES
+NAME              STATUS   ROLES    VERSION         INTERNAL-IP    OS                   KERNEL              RUNTIME                   ROLE         GPU
+132-145-142-111   Ready    <none>   v1.34.11+k3s1   10.19.80.45    Ubuntu 22.04.5 LTS   6.8.0-1046-nvidia   containerd://2.2.7-k3s1   gpu-worker   1
+150-136-45-163    Ready    true     v1.34.11+k3s1   10.19.90.66    Ubuntu 22.04.5 LTS   6.8.0-1046-nvidia   containerd://2.2.7-k3s1   control      1
+150-136-95-180    Ready    <none>   v1.34.11+k3s1   10.19.87.100   Ubuntu 22.04.5 LTS   6.8.0-1046-nvidia   containerd://2.2.7-k3s1   gpu-worker   1
+PODS
+NAME                              READY   STATUS    RESTARTS   AGE   IP           NODE              NOMINATED NODE   READINESS GATES
+agent-84865bbc4b-qs8wx            1/1     Running   0          24m   10.42.0.23   150-136-45-163    <none>           <none>
+gateway-7864747876-mhz29          1/1     Running   0          24m   10.42.0.22   150-136-45-163    <none>           <none>
+nginx-57c5d8d8dc-hfxpc            1/1     Running   0          23m   10.42.0.25   150-136-45-163    <none>           <none>
+repo-llm-tb496-gpu-worker-2xm6s   1/1     Running   0          13m   10.42.1.4    150-136-95-180    <none>           <none>
+repo-llm-tb496-gpu-worker-sz9h5   1/1     Running   0          13m   10.42.2.4    132-145-142-111   <none>           <none>
+repo-llm-tb496-head-l5xph         1/1     Running   0          13m   10.42.0.26   150-136-45-163    <none>           <none>
+sie-64757f5d4d-47xdh              1/1     Running   0          24m   10.42.0.24   150-136-45-163    <none>           <none>
+RAYSERVICE
+NAME       SERVICE STATUS   NUM SERVE ENDPOINTS
+repo-llm   Running          3
+RAYSERVICE_IMAGES
+2.58.0
+rayproject/ray-llm:2.58.0-py312-cu130
+rayproject/ray-llm:2.58.0-py312-cu130
+SERVE_CONFIGURATION
+applications:
+- name: qwen
+  route_prefix: /
+  import_path: ray.serve.llm:build_openai_app
+  args:
+    llm_configs:
+    - model_loading_config:
+        model_id: qwen-coder
+        model_source: Qwen/Qwen2.5-Coder-7B-Instruct
+      engine_kwargs:
+        dtype: bfloat16
+        tensor_parallel_size: 1
+        max_model_len: 8192
+        gpu_memory_utilization: 0.9
+        max_num_seqs: 8
+        enable_prefix_caching: true
+      placement_group_config:
+        bundles:
+        - CPU: 2
+          GPU: 1
+        strategy: STRICT_PACK
+      deployment_config:
+        num_replicas: 2
+        max_ongoing_requests: 8
+        request_router_config:
+          request_router_class: ray.serve.llm.request_router.PrefixCacheAffinityRouter
+          request_router_kwargs:
+            imbalanced_threshold: 2
+            match_rate_threshold: 0.1
+            do_eviction: true
+            eviction_threshold_chars: 500000
+            eviction_target_chars: 400000
+            eviction_interval_secs: 30
+
+GPUS
+NVIDIA A100-SXM4-40GB, 40960 MiB, 580.105.08

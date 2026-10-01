@@ -1,0 +1,48 @@
+GPU
+NVIDIA A100-SXM4-40GB, 40960 MiB, 580.105.08
+K3S
+clientVersion:
+  buildDate: "2026-08-27T14:51:47Z"
+  compiler: gc
+  gitCommit: 9312658016b9e33288b528da68bf88e37e6aeecf
+  gitTreeState: clean
+  gitVersion: v1.34.11+k3s1
+  goVersion: go1.26.7
+  major: "1"
+  minor: "34"
+  platform: linux/amd64
+kustomizeVersion: v5.7.1
+serverVersion:
+  buildDate: "2026-08-27T14:51:47Z"
+  compiler: gc
+  emulationMajor: "1"
+  emulationMinor: "34"
+  gitCommit: 9312658016b9e33288b528da68bf88e37e6aeecf
+  gitTreeState: clean
+  gitVersion: v1.34.11+k3s1
+  goVersion: go1.26.7
+  major: "1"
+  minCompatibilityMajor: "1"
+  minCompatibilityMinor: "33"
+  minor: "34"
+  platform: linux/amd64
+
+RAYSERVICE
+generation=3
+serviceStatus=Running
+rayClusterStatus=
+PODS
+NAME                              READY   STATUS    RESTARTS   AGE     IP           NODE              NOMINATED NODE   READINESS GATES
+agent-7bc54768d6-55szt            1/1     Running   0          6m26s   10.42.0.31   132-145-182-203   <none>           <none>
+gateway-76748785f6-526k6          1/1     Running   0          4h12m   10.42.0.14   132-145-182-203   <none>           <none>
+nginx-d75fd79c-q4t48              1/1     Running   0          4h12m   10.42.0.16   132-145-182-203   <none>           <none>
+repo-llm-lw7qd-gpu-worker-sppgb   1/1     Running   0          4h12m   10.42.0.19   132-145-182-203   <none>           <none>
+repo-llm-lw7qd-head-qdfwx         1/1     Running   0          4h12m   10.42.0.18   132-145-182-203   <none>           <none>
+sie-6577994f64-mqkb9              1/1     Running   0          4h12m   10.42.0.17   132-145-182-203   <none>           <none>
+IMAGES
+agent-7bc54768d6-55szt repo-agent:dev 
+gateway-76748785f6-526k6 repo-agent:dev 
+nginx-d75fd79c-q4t48 nginx:1.28-alpine 
+repo-llm-lw7qd-gpu-worker-sppgb rayproject/ray-llm:2.52.0-py311-cu128 
+repo-llm-lw7qd-head-qdfwx rayproject/ray-llm:2.52.0-py311-cu128 
+sie-6577994f64-mqkb9 ghcr.io/superlinked/sie-server:latest-cpu-default 

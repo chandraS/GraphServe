@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tempfile
 from urllib.parse import quote
 
@@ -51,7 +52,7 @@ def ingest(root, url, commit):
         run(["git", "-C", str(repo), "-c", "core.hooksPath=/dev/null", "checkout", "--detach", commit])
         # Never execute repository code; only extract AST relationships.
         output = stage / "extracted"
-        run(["graphify", "extract", str(repo), "--code-only", "--out", str(output)], cwd=stage, timeout=300)
+        run([sys.executable, "-m", "graphify", "extract", str(repo), "--code-only", "--out", str(output)], cwd=stage, timeout=300)
         if not (output / "graphify-out" / "graph.json").exists():
             raise ValueError("Graphify produced no graph.json")
         graph = json.loads((output / "graphify-out" / "graph.json").read_text())
@@ -209,3 +210,37 @@ def verify(answer, evidence, snapshot):
     if not isinstance(answer.get("limitations"), list):
         raise ValueError("Missing limitations")
     return answer
+
+
+def verified_subset(answer, evidence, snapshot):
+    """Return only model items whose structure and source IDs can be verified."""
+    allowed = {item["id"] for item in evidence}
+    cleaned = {"claims": [], "proposal": [], "limitations": []}
+    omitted = 0
+    if not isinstance(answer, dict):
+        answer = {}
+        omitted += 1
+    for field in ("claims", "proposal"):
+        items = answer.get(field, [])
+        if not isinstance(items, list):
+            omitted += 1
+            continue
+        for item in items:
+            citations = item.get("citations") if isinstance(item, dict) else None
+            if (isinstance(item, dict) and isinstance(item.get("text"), str)
+                    and item["text"].strip() and isinstance(citations, list) and citations
+                    and all(isinstance(cid, str) and cid in allowed for cid in citations)):
+                cleaned[field].append({"text": item["text"], "citations": citations})
+            else:
+                omitted += 1
+    limitations = answer.get("limitations", [])
+    if isinstance(limitations, list):
+        cleaned["limitations"] = [item for item in limitations if isinstance(item, str)]
+        omitted += len(limitations) - len(cleaned["limitations"])
+    else:
+        omitted += 1
+    if omitted:
+        cleaned["limitations"].append(
+            f"Omitted {omitted} model-generated item(s) that lacked verifiable source citations."
+        )
+    return verify(cleaned, evidence, snapshot)

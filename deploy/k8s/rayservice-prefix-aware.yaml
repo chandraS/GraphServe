@@ -1,0 +1,135 @@
+apiVersion: ray.io/v1
+kind: RayService
+metadata:
+  name: repo-llm
+spec:
+  serveConfigV2: |
+    applications:
+    - name: qwen
+      route_prefix: /
+      import_path: ray.serve.llm:build_openai_app
+      args:
+        llm_configs:
+        - model_loading_config:
+            model_id: qwen-coder
+            model_source: Qwen/Qwen2.5-Coder-7B-Instruct
+          engine_kwargs:
+            dtype: bfloat16
+            tensor_parallel_size: 1
+            max_model_len: 8192
+            gpu_memory_utilization: 0.9
+            max_num_seqs: 8
+            enable_prefix_caching: true
+          placement_group_config:
+            bundles:
+            - CPU: 2
+              GPU: 1
+            strategy: STRICT_PACK
+          deployment_config:
+            num_replicas: 2
+            max_ongoing_requests: 8
+            request_router_config:
+              request_router_class: ray.serve.llm.request_router.PrefixCacheAffinityRouter
+              request_router_kwargs:
+                imbalanced_threshold: 2
+                match_rate_threshold: 0.1
+                do_eviction: true
+                eviction_threshold_chars: 500000
+                eviction_target_chars: 400000
+                eviction_interval_secs: 30
+  rayClusterConfig:
+    rayVersion: 2.58.0
+    enableInTreeAutoscaling: false
+    headGroupSpec:
+      rayStartParams:
+        dashboard-host: 0.0.0.0
+        num-cpus: '2'
+        num-gpus: '0'
+        metrics-export-port: '8080'
+      template:
+        metadata:
+          labels:
+            component: ray
+            graphserve.io/workload: ray-head
+        spec:
+          nodeSelector:
+            graphserve.io/role: control
+          containers:
+          - name: ray-head
+            image: rayproject/ray-llm:2.58.0-py312-cu130
+            ports:
+            - name: metrics
+              containerPort: 8080
+            - name: gcs
+              containerPort: 6379
+            - name: dashboard
+              containerPort: 8265
+            - name: client
+              containerPort: 10001
+            - name: serve
+              containerPort: 8000
+            resources:
+              requests:
+                cpu: '2'
+                memory: 6Gi
+              limits:
+                cpu: '4'
+                memory: 8Gi
+          automountServiceAccountToken: false
+    workerGroupSpecs:
+    - groupName: gpu
+      replicas: 2
+      minReplicas: 2
+      maxReplicas: 2
+      rayStartParams:
+        num-cpus: '12'
+        num-gpus: '1'
+        metrics-export-port: '8080'
+      template:
+        metadata:
+          labels:
+            component: ray
+            graphserve.io/workload: llm-worker
+        spec:
+          runtimeClassName: nvidia
+          nodeSelector:
+            graphserve.io/role: gpu-worker
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: graphserve.io/workload
+                    operator: In
+                    values: [llm-worker]
+                topologyKey: kubernetes.io/hostname
+          containers:
+          - name: ray-worker
+            image: rayproject/ray-llm:2.58.0-py312-cu130
+            ports:
+            - name: metrics
+              containerPort: 8080
+            resources:
+              requests:
+                cpu: '8'
+                memory: 48Gi
+                nvidia.com/gpu: '1'
+              limits:
+                cpu: '16'
+                memory: 64Gi
+                nvidia.com/gpu: '1'
+            volumeMounts:
+            - name: shm
+              mountPath: /dev/shm
+            - name: hf-cache
+              mountPath: /home/ray/.cache/huggingface
+          automountServiceAccountToken: false
+          volumes:
+          - name: shm
+            emptyDir:
+              medium: Memory
+              sizeLimit: 16Gi
+          - name: hf-cache
+            hostPath:
+              path: /mnt/graphserve-data/huggingface
+              type: Directory

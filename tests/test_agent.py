@@ -17,7 +17,7 @@ def snapshot(tmp_path):
     core.run(['git','-C',str(repo),'-c','user.name=Test','-c','user.email=test@example.com','commit','-m','fixture'])
     sha=core.run(['git','-C',str(repo),'rev-parse','HEAD']).strip()
     (tmp_path/'snapshot.json').write_text(json.dumps({'url':'https://github.com/example/repo','commit':sha}))
-    core.run([str(Path(sys.executable).parent/'graphify'),'extract',str(repo),'--code-only','--out',str(tmp_path/'extracted')],cwd=tmp_path)
+    core.run([sys.executable,'-m','graphify','extract',str(repo),'--code-only','--out',str(tmp_path/'extracted')],cwd=tmp_path)
     graph=json.loads((tmp_path/'extracted/graphify-out/graph.json').read_text())
     for node in graph['nodes']:
         if Path(node.get('source_file','')).is_absolute():
@@ -60,6 +60,7 @@ def test_api_mock_and_auth(snapshot,monkeypatch,tmp_path_factory):
         response=client.post('/questions',headers={'Authorization':'Bearer test'},json={'repository_id':key,'question':'greet'})
         assert response.status_code==200, response.text
         assert response.json()['sources'] and response.json()['mode']=='mock'
+        assert response.json()['inference_usage'] is None
         assert client.get('/metrics').status_code==200
 
 def test_ingestion_pipeline(snapshot, tmp_path_factory, monkeypatch):
@@ -82,12 +83,21 @@ def test_sie_embeddings_stay_in_agent(monkeypatch):
     import httpx
     from repo_agent import sie
     original=httpx.AsyncClient
+    requests=[]
     def handler(request):
         assert request.url.path=='/v1/embeddings'
+        assert request.headers.get('authorization') is None
+        requests.append(request)
+        if len(requests)==1:
+            return httpx.Response(503,json={'detail':'model loading'})
         return httpx.Response(200,json={'data':[{'index':2,'embedding':[1.,0.]},{'index':0,'embedding':[1.,0.]},{'index':1,'embedding':[0.,1.]}]})
+    async def no_sleep(_):
+        pass
     monkeypatch.setenv('SIE_BASE_URL','http://sie')
+    monkeypatch.setattr(sie.asyncio,'sleep',no_sleep)
     monkeypatch.setattr(sie.httpx,'AsyncClient',lambda **kwargs: original(transport=httpx.MockTransport(handler),**kwargs))
     result=asyncio.run(sie.rerank('question',[{'id':'S1','text':'first'},{'id':'S2','text':'second'}]))
+    assert len(requests)==2
     assert [x['id'] for x in result]==['S2','S1']
 
 def test_swagger_bearer_security(monkeypatch):
@@ -130,3 +140,51 @@ def test_home_page():
         assert page.status_code == 200
         assert 'text/html' in page.headers['content-type']
         assert 'Repository reader' in page.text
+        assert 'generated GraphServe API key' in page.text
+        assert 'This page does not share authorization entered in Swagger.' in page.text
+
+
+def test_real_inference_repairs_uncited_output(snapshot, monkeypatch, tmp_path_factory):
+    import httpx
+    key = 'b' * 24
+    root = tmp_path_factory.mktemp('real-snapshots')
+    snapshot.rename(root / key)
+    monkeypatch.setattr(api, 'ROOT', root)
+    monkeypatch.setattr(api, 'MOCK', False)
+    monkeypatch.setenv('AGENT_API_KEY', 'test')
+    monkeypatch.delenv('SIE_BASE_URL', raising=False)
+    calls = []
+
+    class FakeAsyncClient:
+        def __init__(self, **kwargs):
+            pass
+        async def __aenter__(self):
+            return self
+        async def __aexit__(self, *args):
+            pass
+        async def post(self, url, json):
+            calls.append(json)
+            citation = [] if len(calls) == 1 else ['S1']
+            proposal = [] if len(calls) == 1 else [
+                {'text': 'An unsupported change', 'citations': []}
+            ]
+            content = {'claims': [{'text': 'A greeting function exists', 'citations': citation}],
+                       'proposal': proposal, 'limitations': []}
+            request = httpx.Request('POST', url)
+            return httpx.Response(200, request=request, json={
+                'choices': [{'message': {'content': __import__('json').dumps(content)}}],
+                'usage': {'prompt_tokens': 10, 'completion_tokens': 5, 'total_tokens': 15},
+            })
+
+    monkeypatch.setattr(api.httpx, 'AsyncClient', FakeAsyncClient)
+    with TestClient(api.app) as client:
+        monkeypatch.setattr(api, 'context', core.Context(mock=True))
+        response = client.post('/questions', headers={'Authorization': 'Bearer test'},
+                               json={'repository_id': key, 'question': 'greet'})
+    assert response.status_code == 200, response.text
+    assert len(calls) == 2
+    assert 'VALIDATION RETRY' in calls[1]['messages'][0]['content']
+    assert response.json()['inference_attempts'] == 2
+    assert response.json()['inference_usage_total']['total_tokens'] == 30
+    assert response.json()['answer']['proposal'] == []
+    assert 'Omitted 1 model-generated item' in response.json()['answer']['limitations'][-1]

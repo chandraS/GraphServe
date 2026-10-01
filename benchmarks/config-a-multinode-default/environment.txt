@@ -1,0 +1,21 @@
+Thu Oct  1 04:18:13 UTC 2026
+NODES
+NAME              STATUS   ROLES           AGE   VERSION         INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME         ROLE         GPU.PRESENT
+132-145-142-111   Ready    <none>          24m   v1.34.11+k3s1   10.19.80.45    <none>        Ubuntu 22.04.5 LTS   6.8.0-1046-nvidia   containerd://2.2.7-k3s1   gpu-worker   true
+150-136-45-163    Ready    control-plane   31m   v1.34.11+k3s1   10.19.90.66    <none>        Ubuntu 22.04.5 LTS   6.8.0-1046-nvidia   containerd://2.2.7-k3s1   control      true
+150-136-95-180    Ready    <none>          25m   v1.34.11+k3s1   10.19.87.100   <none>        Ubuntu 22.04.5 LTS   6.8.0-1046-nvidia   containerd://2.2.7-k3s1   gpu-worker   true
+PODS
+NAME                              READY   STATUS    RESTARTS   AGE     IP           NODE              NOMINATED NODE   READINESS GATES
+agent-84865bbc4b-qs8wx            1/1     Running   0          8m54s   10.42.0.23   150-136-45-163    <none>           <none>
+gateway-7864747876-mhz29          1/1     Running   0          8m54s   10.42.0.22   150-136-45-163    <none>           <none>
+nginx-57c5d8d8dc-hfxpc            1/1     Running   0          7m17s   10.42.0.25   150-136-45-163    <none>           <none>
+repo-llm-qrgg9-gpu-worker-5ltzc   1/1     Running   0          18m     10.42.1.3    150-136-95-180    <none>           <none>
+repo-llm-qrgg9-gpu-worker-sd44c   1/1     Running   0          18m     10.42.2.3    132-145-142-111   <none>           <none>
+repo-llm-qrgg9-head-bp8gn         1/1     Running   0          18m     10.42.0.21   150-136-45-163    <none>           <none>
+sie-64757f5d4d-47xdh              1/1     Running   0          8m23s   10.42.0.24   150-136-45-163    <none>           <none>
+RAYSERVICE_IMAGES
+2.58.0
+rayproject/ray-llm:2.58.0-py312-cu130
+rayproject/ray-llm:2.58.0-py312-cu130
+GPUS
+NVIDIA A100-SXM4-40GB, 40960 MiB, 580.105.08

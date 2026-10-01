@@ -3,14 +3,32 @@ kind: RayService
 metadata:
   name: repo-llm
 spec:
-  serveConfigV2: "applications:\n- name: qwen\n  route_prefix: /\n  import_path: ray.serve.llm:build_openai_app\n\
-    \  args:\n    llm_configs:\n    - model_loading_config:\n        model_id: qwen-coder\n\
-    \        model_source: Qwen/Qwen2.5-Coder-7B-Instruct\n      engine_kwargs:\n\
-    \        dtype: bfloat16\n        tensor_parallel_size: 1\n        max_model_len:\
-    \ 8192\n        gpu_memory_utilization: 0.9\n        max_num_seqs: 8\n       \
-    \ enable_prefix_caching: false\n      deployment_config:\n        autoscaling_config:\n\
-    \          min_replicas: 1\n          max_replicas: 1\n        max_ongoing_requests:\
-    \ 8\n"
+  serveConfigV2: |
+    applications:
+    - name: qwen
+      route_prefix: /
+      import_path: ray.serve.llm:build_openai_app
+      args:
+        llm_configs:
+        - model_loading_config:
+            model_id: qwen-coder
+            model_source: Qwen/Qwen2.5-Coder-7B-Instruct
+          engine_kwargs:
+            dtype: bfloat16
+            tensor_parallel_size: 1
+            max_model_len: 8192
+            gpu_memory_utilization: 0.42
+            max_num_seqs: 2
+            enable_prefix_caching: false
+            enforce_eager: true
+          placement_group_config:
+            bundles:
+            - CPU: 2
+              GPU: 0.5
+            strategy: PACK
+          deployment_config:
+            num_replicas: 2
+            max_ongoing_requests: 2
   rayClusterConfig:
     rayVersion: 2.52.0
     enableInTreeAutoscaling: false
@@ -53,6 +71,7 @@ spec:
       minReplicas: 1
       maxReplicas: 1
       rayStartParams:
+        num-cpus: '12'
         num-gpus: '1'
         metrics-export-port: '8080'
       template:
@@ -68,12 +87,12 @@ spec:
               containerPort: 8080
             resources:
               requests:
-                cpu: '4'
-                memory: 24Gi
+                cpu: '8'
+                memory: 48Gi
                 nvidia.com/gpu: '1'
               limits:
-                cpu: '8'
-                memory: 32Gi
+                cpu: '16'
+                memory: 64Gi
                 nvidia.com/gpu: '1'
             volumeMounts:
             - name: shm
@@ -85,7 +104,7 @@ spec:
           - name: shm
             emptyDir:
               medium: Memory
-              sizeLimit: 4Gi
+              sizeLimit: 8Gi
           - name: hf-cache
             persistentVolumeClaim:
               claimName: hf-cache

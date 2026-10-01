@@ -1,0 +1,5978 @@
+{
+  "agent_requests": {
+    "query": "agent_requests_total",
+    "result": [
+      {
+        "metric": {
+          "__name__": "agent_requests_total",
+          "container": "agent",
+          "endpoint": "http",
+          "instance": "10.42.0.23:8080",
+          "job": "agent",
+          "namespace": "repo-agent",
+          "operation": "question",
+          "pod": "agent-84865bbc4b-qs8wx",
+          "service": "agent",
+          "status": "error"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "1"
+          ],
+          [
+            1790828244.187,
+            "1"
+          ],
+          [
+            1790828249.187,
+            "1"
+          ],
+          [
+            1790828254.187,
+            "1"
+          ],
+          [
+            1790828259.187,
+            "1"
+          ],
+          [
+            1790828264.187,
+            "1"
+          ],
+          [
+            1790828269.187,
+            "1"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "agent_requests_total",
+          "container": "agent",
+          "endpoint": "http",
+          "instance": "10.42.0.23:8080",
+          "job": "agent",
+          "namespace": "repo-agent",
+          "operation": "question",
+          "pod": "agent-84865bbc4b-qs8wx",
+          "service": "agent",
+          "status": "ok"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "17"
+          ],
+          [
+            1790828244.187,
+            "25"
+          ],
+          [
+            1790828249.187,
+            "25"
+          ],
+          [
+            1790828254.187,
+            "25"
+          ],
+          [
+            1790828259.187,
+            "25"
+          ],
+          [
+            1790828264.187,
+            "25"
+          ],
+          [
+            1790828269.187,
+            "25"
+          ]
+        ]
+      }
+    ]
+  },
+  "model_output_validation": {
+    "query": "agent_model_outputs_total",
+    "result": [
+      {
+        "metric": {
+          "__name__": "agent_model_outputs_total",
+          "container": "agent",
+          "endpoint": "http",
+          "instance": "10.42.0.23:8080",
+          "job": "agent",
+          "namespace": "repo-agent",
+          "pod": "agent-84865bbc4b-qs8wx",
+          "result": "invalid",
+          "service": "agent"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "4"
+          ],
+          [
+            1790828244.187,
+            "5"
+          ],
+          [
+            1790828249.187,
+            "5"
+          ],
+          [
+            1790828254.187,
+            "5"
+          ],
+          [
+            1790828259.187,
+            "5"
+          ],
+          [
+            1790828264.187,
+            "5"
+          ],
+          [
+            1790828269.187,
+            "5"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "agent_model_outputs_total",
+          "container": "agent",
+          "endpoint": "http",
+          "instance": "10.42.0.23:8080",
+          "job": "agent",
+          "namespace": "repo-agent",
+          "pod": "agent-84865bbc4b-qs8wx",
+          "result": "repaired",
+          "service": "agent"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "4"
+          ],
+          [
+            1790828244.187,
+            "5"
+          ],
+          [
+            1790828249.187,
+            "5"
+          ],
+          [
+            1790828254.187,
+            "5"
+          ],
+          [
+            1790828259.187,
+            "5"
+          ],
+          [
+            1790828264.187,
+            "5"
+          ],
+          [
+            1790828269.187,
+            "5"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "agent_model_outputs_total",
+          "container": "agent",
+          "endpoint": "http",
+          "instance": "10.42.0.23:8080",
+          "job": "agent",
+          "namespace": "repo-agent",
+          "pod": "agent-84865bbc4b-qs8wx",
+          "result": "valid",
+          "service": "agent"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "20"
+          ],
+          [
+            1790828249.187,
+            "20"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      }
+    ]
+  },
+  "gateway_requests": {
+    "query": "gateway_requests_total",
+    "result": [
+      {
+        "metric": {
+          "__name__": "gateway_requests_total",
+          "container": "gateway",
+          "endpoint": "http",
+          "instance": "10.42.0.22:8080",
+          "job": "gateway",
+          "namespace": "repo-agent",
+          "pod": "gateway-7864747876-mhz29",
+          "service": "gateway",
+          "status": "200"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "21"
+          ],
+          [
+            1790828244.187,
+            "30"
+          ],
+          [
+            1790828249.187,
+            "30"
+          ],
+          [
+            1790828254.187,
+            "30"
+          ],
+          [
+            1790828259.187,
+            "30"
+          ],
+          [
+            1790828264.187,
+            "30"
+          ],
+          [
+            1790828269.187,
+            "30"
+          ]
+        ]
+      }
+    ]
+  },
+  "ttft_buckets": {
+    "query": "ray_vllm_time_to_first_token_seconds_bucket",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "+Inf",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.001",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.005",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.01",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.02",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.04",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.06",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.08",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.1",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.25",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "2"
+          ],
+          [
+            1790828244.187,
+            "2"
+          ],
+          [
+            1790828249.187,
+            "2"
+          ],
+          [
+            1790828254.187,
+            "2"
+          ],
+          [
+            1790828259.187,
+            "2"
+          ],
+          [
+            1790828264.187,
+            "2"
+          ],
+          [
+            1790828269.187,
+            "2"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.75",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "1.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "10.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "160.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "2.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "20.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "2560.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "40.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "5.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "640.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "7.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "80.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "13"
+          ],
+          [
+            1790828244.187,
+            "13"
+          ],
+          [
+            1790828249.187,
+            "13"
+          ],
+          [
+            1790828254.187,
+            "20"
+          ],
+          [
+            1790828259.187,
+            "20"
+          ],
+          [
+            1790828264.187,
+            "20"
+          ],
+          [
+            1790828269.187,
+            "20"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "+Inf",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.001",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.005",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.01",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.02",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.04",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.06",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.08",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.1",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.25",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "10"
+          ],
+          [
+            1790828244.187,
+            "10"
+          ],
+          [
+            1790828249.187,
+            "10"
+          ],
+          [
+            1790828254.187,
+            "10"
+          ],
+          [
+            1790828259.187,
+            "12"
+          ],
+          [
+            1790828264.187,
+            "12"
+          ],
+          [
+            1790828269.187,
+            "12"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.75",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "10"
+          ],
+          [
+            1790828244.187,
+            "10"
+          ],
+          [
+            1790828249.187,
+            "10"
+          ],
+          [
+            1790828254.187,
+            "10"
+          ],
+          [
+            1790828259.187,
+            "12"
+          ],
+          [
+            1790828264.187,
+            "12"
+          ],
+          [
+            1790828269.187,
+            "12"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "1.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "10.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "160.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "2.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "20.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "2560.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "40.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "5.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "640.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "7.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_time_to_first_token_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "80.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      }
+    ]
+  },
+  "ttft_p95": {
+    "query": "histogram_quantile(0.95, sum by (le) (rate(ray_vllm_time_to_first_token_seconds_bucket[1m])))",
+    "result": [
+      {
+        "metric": {},
+        "values": [
+          [
+            1790828239.187,
+            "0.48571428571428565"
+          ],
+          [
+            1790828244.187,
+            "0.48571428571428565"
+          ],
+          [
+            1790828249.187,
+            "0.48571428571428565"
+          ],
+          [
+            1790828254.187,
+            "0.48750000000000004"
+          ],
+          [
+            1790828259.187,
+            "0.4875"
+          ],
+          [
+            1790828264.187,
+            "0.4875"
+          ],
+          [
+            1790828269.187,
+            "0.4875"
+          ]
+        ]
+      }
+    ]
+  },
+  "e2e_buckets": {
+    "query": "ray_vllm_e2e_request_latency_seconds_bucket",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "+Inf",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.3",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.8",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "1.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "1.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "10.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "120.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "15.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "1920.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "2.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "2.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "3"
+          ],
+          [
+            1790828244.187,
+            "3"
+          ],
+          [
+            1790828249.187,
+            "3"
+          ],
+          [
+            1790828254.187,
+            "4"
+          ],
+          [
+            1790828259.187,
+            "4"
+          ],
+          [
+            1790828264.187,
+            "4"
+          ],
+          [
+            1790828269.187,
+            "4"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "20.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "240.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "30.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "40.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "480.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "5.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "18"
+          ],
+          [
+            1790828259.187,
+            "18"
+          ],
+          [
+            1790828264.187,
+            "18"
+          ],
+          [
+            1790828269.187,
+            "18"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "50.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "60.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "7680.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "le": "960.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "+Inf",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.3",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "0.8",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "1.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "1.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "10.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "120.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "15.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "1920.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "2.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "2.5",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "1"
+          ],
+          [
+            1790828244.187,
+            "1"
+          ],
+          [
+            1790828249.187,
+            "1"
+          ],
+          [
+            1790828254.187,
+            "1"
+          ],
+          [
+            1790828259.187,
+            "1"
+          ],
+          [
+            1790828264.187,
+            "1"
+          ],
+          [
+            1790828269.187,
+            "1"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "20.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "240.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "30.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "40.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "480.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "5.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "7"
+          ],
+          [
+            1790828244.187,
+            "7"
+          ],
+          [
+            1790828249.187,
+            "7"
+          ],
+          [
+            1790828254.187,
+            "7"
+          ],
+          [
+            1790828259.187,
+            "9"
+          ],
+          [
+            1790828264.187,
+            "9"
+          ],
+          [
+            1790828269.187,
+            "9"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "50.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "60.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "7680.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_e2e_request_latency_seconds_bucket",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "le": "960.0",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      }
+    ]
+  },
+  "e2e_p95": {
+    "query": "histogram_quantile(0.95, sum by (le) (rate(ray_vllm_e2e_request_latency_seconds_bucket[1m])))",
+    "result": [
+      {
+        "metric": {},
+        "values": [
+          [
+            1790828239.187,
+            "8.249999999999996"
+          ],
+          [
+            1790828244.187,
+            "8.249999999999996"
+          ],
+          [
+            1790828249.187,
+            "8.249999999999996"
+          ],
+          [
+            1790828254.187,
+            "8.75"
+          ],
+          [
+            1790828259.187,
+            "7.749999999999997"
+          ],
+          [
+            1790828264.187,
+            "7.749999999999997"
+          ],
+          [
+            1790828269.187,
+            "7.749999999999997"
+          ]
+        ]
+      }
+    ]
+  },
+  "tpot_buckets": {
+    "query": "ray_vllm_time_per_output_token_seconds_bucket",
+    "result": []
+  },
+  "tpot_p95": {
+    "query": "histogram_quantile(0.95, sum by (le) (rate(ray_vllm_time_per_output_token_seconds_bucket[1m])))",
+    "result": []
+  },
+  "engine_token_rate": {
+    "query": "sum(rate(ray_vllm_prompt_tokens_total[1m])) + sum(rate(ray_vllm_generation_tokens_total[1m]))",
+    "result": [
+      {
+        "metric": {},
+        "values": [
+          [
+            1790828239.187,
+            "1186.2"
+          ],
+          [
+            1790828244.187,
+            "1186.2"
+          ],
+          [
+            1790828249.187,
+            "1186.2"
+          ],
+          [
+            1790828254.187,
+            "1598.2333333333331"
+          ],
+          [
+            1790828259.187,
+            "1412.6666666666665"
+          ],
+          [
+            1790828264.187,
+            "1412.6666666666665"
+          ],
+          [
+            1790828269.187,
+            "1412.6666666666665"
+          ]
+        ]
+      }
+    ]
+  },
+  "engine_request_rate": {
+    "query": "sum(rate(ray_vllm_request_success_total[1m]))",
+    "result": [
+      {
+        "metric": {},
+        "values": [
+          [
+            1790828239.187,
+            "0.23333333333333334"
+          ],
+          [
+            1790828244.187,
+            "0.23333333333333334"
+          ],
+          [
+            1790828249.187,
+            "0.23333333333333334"
+          ],
+          [
+            1790828254.187,
+            "0.33333333333333337"
+          ],
+          [
+            1790828259.187,
+            "0.3"
+          ],
+          [
+            1790828264.187,
+            "0.3"
+          ],
+          [
+            1790828269.187,
+            "0.3"
+          ]
+        ]
+      }
+    ]
+  },
+  "prompt_tokens": {
+    "query": "ray_vllm_prompt_tokens_total",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_prompt_tokens_total",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "51331"
+          ],
+          [
+            1790828244.187,
+            "51331"
+          ],
+          [
+            1790828249.187,
+            "51331"
+          ],
+          [
+            1790828254.187,
+            "83711"
+          ],
+          [
+            1790828259.187,
+            "83711"
+          ],
+          [
+            1790828264.187,
+            "83711"
+          ],
+          [
+            1790828269.187,
+            "83711"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_prompt_tokens_total",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "48433"
+          ],
+          [
+            1790828244.187,
+            "48433"
+          ],
+          [
+            1790828249.187,
+            "48433"
+          ],
+          [
+            1790828254.187,
+            "48433"
+          ],
+          [
+            1790828259.187,
+            "56452"
+          ],
+          [
+            1790828264.187,
+            "56452"
+          ],
+          [
+            1790828269.187,
+            "56452"
+          ]
+        ]
+      }
+    ]
+  },
+  "generation_tokens": {
+    "query": "ray_vllm_generation_tokens_total",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_generation_tokens_total",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "2591"
+          ],
+          [
+            1790828244.187,
+            "2591"
+          ],
+          [
+            1790828249.187,
+            "2591"
+          ],
+          [
+            1790828254.187,
+            "4120"
+          ],
+          [
+            1790828259.187,
+            "4120"
+          ],
+          [
+            1790828264.187,
+            "4120"
+          ],
+          [
+            1790828269.187,
+            "4120"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_generation_tokens_total",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "3037"
+          ],
+          [
+            1790828244.187,
+            "3037"
+          ],
+          [
+            1790828249.187,
+            "3037"
+          ],
+          [
+            1790828254.187,
+            "3037"
+          ],
+          [
+            1790828259.187,
+            "3489"
+          ],
+          [
+            1790828264.187,
+            "3489"
+          ],
+          [
+            1790828269.187,
+            "3489"
+          ]
+        ]
+      }
+    ]
+  },
+  "request_success": {
+    "query": "ray_vllm_request_success_total",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_request_success_total",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "finished_reason": "stop",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "12"
+          ],
+          [
+            1790828244.187,
+            "12"
+          ],
+          [
+            1790828249.187,
+            "12"
+          ],
+          [
+            1790828254.187,
+            "19"
+          ],
+          [
+            1790828259.187,
+            "19"
+          ],
+          [
+            1790828264.187,
+            "19"
+          ],
+          [
+            1790828269.187,
+            "19"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_request_success_total",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "finished_reason": "stop",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "11"
+          ],
+          [
+            1790828244.187,
+            "11"
+          ],
+          [
+            1790828249.187,
+            "11"
+          ],
+          [
+            1790828254.187,
+            "11"
+          ],
+          [
+            1790828259.187,
+            "13"
+          ],
+          [
+            1790828264.187,
+            "13"
+          ],
+          [
+            1790828269.187,
+            "13"
+          ]
+        ]
+      }
+    ]
+  },
+  "running": {
+    "query": "ray_vllm_num_requests_running",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_num_requests_running",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "1"
+          ],
+          [
+            1790828244.187,
+            "1"
+          ],
+          [
+            1790828249.187,
+            "1"
+          ],
+          [
+            1790828254.187,
+            "1"
+          ],
+          [
+            1790828259.187,
+            "1"
+          ],
+          [
+            1790828264.187,
+            "1"
+          ],
+          [
+            1790828269.187,
+            "1"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_num_requests_running",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      }
+    ]
+  },
+  "waiting": {
+    "query": "ray_vllm_num_requests_waiting",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_num_requests_waiting",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_num_requests_waiting",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      }
+    ]
+  },
+  "kv_cache": {
+    "query": "ray_vllm_kv_cache_usage_perc",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "ReplicaId": "5hpxgt92",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0e0ea2585a2f89b92990436860b4416634da841ed7362f437d56b3de",
+          "__name__": "ray_vllm_kv_cache_usage_perc",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0.008928190012388426"
+          ],
+          [
+            1790828244.187,
+            "0.008928190012388426"
+          ],
+          [
+            1790828249.187,
+            "0.008928190012388426"
+          ],
+          [
+            1790828254.187,
+            "0.011149557862360604"
+          ],
+          [
+            1790828259.187,
+            "0.011149557862360604"
+          ],
+          [
+            1790828264.187,
+            "0.011149557862360604"
+          ],
+          [
+            1790828269.187,
+            "0.011149557862360604"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "ReplicaId": "klewqcbu",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "29387f5e0f9224a666ad3959316c4c361164a858f20daef95a68c730",
+          "__name__": "ray_vllm_kv_cache_usage_perc",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "engine": "0",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "model_name": "qwen-coder",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      }
+    ]
+  },
+  "serve_queued": {
+    "query": "ray_serve_deployment_queued_queries",
+    "result": [
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.0.21",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "d402fbadb98df47d29227de304c5352980ca54725bea3f8b104fb894",
+          "__name__": "ray_serve_deployment_queued_queries",
+          "actor_id": "4bca7f77290e1136dc71ae2f01000000",
+          "application": "qwen",
+          "container": "ray-head",
+          "deployment": "OpenAiIngress",
+          "endpoint": "metrics",
+          "handle": "b1ovkq2b",
+          "instance": "10.42.0.21:8080",
+          "job": "repo-agent/ray",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-head-bp8gn"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "0fb3118b65c882addb4be8337c33c614350360c8013adb5ef5002ec1",
+          "__name__": "ray_serve_deployment_queued_queries",
+          "actor_id": "2b0678078951c0b2e0d31fdf01000000",
+          "application": "qwen",
+          "container": "ray-worker",
+          "deployment": "LLMServer:qwen-coder",
+          "endpoint": "metrics",
+          "handle": "reaoxkm6",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.1.3",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "5f563794db8e5e4bf4cb83d1ae7a55b83ab69730e897fe1285b40231",
+          "__name__": "ray_serve_deployment_queued_queries",
+          "actor_id": "60a594b76b3fe8120cd117a801000000",
+          "application": "qwen",
+          "container": "ray-worker",
+          "deployment": "OpenAiIngress",
+          "endpoint": "metrics",
+          "handle": "ztmjb85f",
+          "instance": "10.42.1.3:8080",
+          "job": "repo-agent/ray",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "Component": "core_worker",
+          "NodeAddress": "10.42.2.3",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "WorkerId": "e39b486f46956676a7c818bc9c1b6d25e06a278d245e32cbe6c1b07d",
+          "__name__": "ray_serve_deployment_queued_queries",
+          "actor_id": "4e7658bfb0790dbc89a0cd5c01000000",
+          "application": "qwen",
+          "container": "ray-worker",
+          "deployment": "OpenAiIngress",
+          "endpoint": "metrics",
+          "handle": "eryxnc7i",
+          "instance": "10.42.2.3:8080",
+          "job": "repo-agent/ray",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      }
+    ]
+  },
+  "gpu_utilization": {
+    "query": "ray_node_gpus_utilization{RayNodeType=\"worker\"}",
+    "result": [
+      {
+        "metric": {
+          "GpuDeviceName": "NVIDIA A100-SXM4-40GB",
+          "GpuIndex": "0",
+          "GpuUuid": "GPU-632897eb-3c98-bee4-a287-f175b9f51a21",
+          "IsHeadNode": "false",
+          "RayNodeType": "worker",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "__name__": "ray_node_gpus_utilization",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "instance": "10.42.1.3:8080",
+          "ip": "10.42.1.3",
+          "job": "repo-agent/ray",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "100"
+          ],
+          [
+            1790828244.187,
+            "100"
+          ],
+          [
+            1790828249.187,
+            "100"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "0"
+          ],
+          [
+            1790828264.187,
+            "0"
+          ],
+          [
+            1790828269.187,
+            "0"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "GpuDeviceName": "NVIDIA A100-SXM4-40GB",
+          "GpuIndex": "0",
+          "GpuUuid": "GPU-c6ace1a7-a968-7935-73f8-e9513d3b709a",
+          "IsHeadNode": "false",
+          "RayNodeType": "worker",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "__name__": "ray_node_gpus_utilization",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "instance": "10.42.2.3:8080",
+          "ip": "10.42.2.3",
+          "job": "repo-agent/ray",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "0"
+          ],
+          [
+            1790828244.187,
+            "0"
+          ],
+          [
+            1790828249.187,
+            "0"
+          ],
+          [
+            1790828254.187,
+            "0"
+          ],
+          [
+            1790828259.187,
+            "100"
+          ],
+          [
+            1790828264.187,
+            "100"
+          ],
+          [
+            1790828269.187,
+            "100"
+          ]
+        ]
+      }
+    ]
+  },
+  "gpu_memory_mb": {
+    "query": "ray_node_gram_used{RayNodeType=\"worker\"}",
+    "result": [
+      {
+        "metric": {
+          "GpuDeviceName": "NVIDIA A100-SXM4-40GB",
+          "GpuIndex": "0",
+          "GpuUuid": "GPU-632897eb-3c98-bee4-a287-f175b9f51a21",
+          "IsHeadNode": "false",
+          "RayNodeType": "worker",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "__name__": "ray_node_gram_used",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "instance": "10.42.1.3:8080",
+          "ip": "10.42.1.3",
+          "job": "repo-agent/ray",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-5ltzc"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "36819"
+          ],
+          [
+            1790828244.187,
+            "36819"
+          ],
+          [
+            1790828249.187,
+            "36819"
+          ],
+          [
+            1790828254.187,
+            "36819"
+          ],
+          [
+            1790828259.187,
+            "36819"
+          ],
+          [
+            1790828264.187,
+            "36819"
+          ],
+          [
+            1790828269.187,
+            "36819"
+          ]
+        ]
+      },
+      {
+        "metric": {
+          "GpuDeviceName": "NVIDIA A100-SXM4-40GB",
+          "GpuIndex": "0",
+          "GpuUuid": "GPU-c6ace1a7-a968-7935-73f8-e9513d3b709a",
+          "IsHeadNode": "false",
+          "RayNodeType": "worker",
+          "SessionName": "session_2026-09-30_21-00-18_914193_1",
+          "Version": "2.58.0",
+          "__name__": "ray_node_gram_used",
+          "container": "ray-worker",
+          "endpoint": "metrics",
+          "instance": "10.42.2.3:8080",
+          "ip": "10.42.2.3",
+          "job": "repo-agent/ray",
+          "namespace": "repo-agent",
+          "pod": "repo-llm-qrgg9-gpu-worker-sd44c"
+        },
+        "values": [
+          [
+            1790828239.187,
+            "36703"
+          ],
+          [
+            1790828244.187,
+            "36703"
+          ],
+          [
+            1790828249.187,
+            "36703"
+          ],
+          [
+            1790828254.187,
+            "36703"
+          ],
+          [
+            1790828259.187,
+            "36703"
+          ],
+          [
+            1790828264.187,
+            "36703"
+          ],
+          [
+            1790828269.187,
+            "36703"
+          ]
+        ]
+      }
+    ]
+  }
+}

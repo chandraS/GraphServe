@@ -1,18 +1,81 @@
-# Lambda VM + single-node K3s
+# Lambda K3s deployment
 
-A Lambda GPU VM with K3s is sufficient for this project's single-replica Kubernetes setup. It does not provide high availability. Lambda documents this route: https://docs.lambda.ai/education/large-language-models/k8s-ollama-llama-3-2/ . No VM, cluster, Helm release or Kubernetes workload has been created by this scaffold.
+GraphServe uses one control node and two A100 worker nodes. The repository does
+not create, resize or terminate paid resources.
 
-Before deployment, confirm whether an existing Lambda VM/cluster will be used; record GPU model/VRAM, driver, OS, Kubernetes/K3s version, allocatable CPU/RAM, storage and registry access. The user has proposed a VM with K3s; VM identity and capacity are still unknown. Paid provisioning requires a separate explicit instruction.
+## Persistent storage
 
-1. Select a BF16-capable GPU. The 7B weights alone need roughly 15 GB; KV cache and runtime need additional memory. A 24 GB device may need shorter context/concurrency. A 40/48 GB or larger device gives more headroom; verify the baseline empirically before purchase decisions. The current pod requests sum to more than 30 GiB RAM plus Kubernetes/monitoring overhead; plan at least 48–64 GiB host RAM and sufficient CPU. SIE can run on CPU to avoid competing for the sole GPU.
-2. Install a supported K3s release, NVIDIA runtime integration and device plugin/GPU Operator compatible with the chosen driver. Lambda images may already contain drivers: do not blindly reinstall them. Verify `nvidia.com/gpu: 1` is allocatable and run an NVIDIA GPU smoke pod. Use the K3s containerd configuration, not Docker's runtime settings. Keep API/dashboard ports private; access via SSH tunnels or authenticated ingress.
-3. Install a version-pinned KubeRay operator and a version-pinned kube-prometheus-stack release. Record chart versions in the evaluation artifact. Manifests require RayService, ServiceMonitor and PodMonitor CRDs. Ray head and GPU worker can share this single node. KubeRay's own example informs the pinned Ray 2.52.0 CUDA 12.8 image: https://github.com/ray-project/kuberay/blob/master/ray-operator/config/samples/ray-service.llm-serve.yaml . Validate driver compatibility and record the actual bundled vLLM version before use.
-4. Build/import `repo-agent:dev` into K3s containerd or publish a versioned image and change the manifests. Docker's local image store is not K3s containerd's. The Dockerfile uses the checked dependency lock. For reproducibility, pin container digests and Qwen model/tokenizer revisions before measurement.
-5. Create namespace `repo-agent` and Secret `agent-auth` with key `api-key` using your secret-management process. No credentials are committed. Configure the default StorageClass for the 20 GiB RWO PVC. On K3s, local-path storage remains tied to the node; retain backups separately. HF cache is ephemeral in this scaffold.
-6. Render and review `kubectl kustomize deploy/k8s`. After deployment is explicitly requested, apply it to a named context, wait for RayService health, and inspect model readiness. One GPU worker and model replica are fixed at one; no cluster autoscaler is enabled. RayService replacement upgrades can temporarily request another worker: on a single GPU use a planned downtime replacement rather than relying on a rolling upgrade.
-7. Access nginx with `kubectl -n repo-agent port-forward svc/nginx 8080:8080`. No public LoadBalancer or Ingress is created. Agent inference flows through nginx's internal port 8081, gateway, Ray Serve and vLLM. Neither the Ray dashboard nor gateway should be exposed publicly.
-8. Configure Prometheus selectors to discover ServiceMonitors/PodMonitors in `repo-agent` (release label `monitoring`). Import `deploy/k8s/grafana-dashboard.yaml`, enable Grafana sidecar discovery across namespaces, and set Prometheus datasource UID `prometheus`. The Ray pod monitor scrapes head and worker metrics on 8080. Actual Ray/vLLM metric names vary by image: use the discovery panel, then add TTFT/inter-token latency/KV-cache panels for the observed series. Verify targets are UP before measurement.
+Attach the same Lambda filesystem to all three instances before launch. The
+deployment stores Hugging Face weights, SIE cache, repository snapshots and
+benchmark artifacts below its `graphserve/` directory. All nodes must expose
+that filesystem at `/mnt/graphserve-data` for the multi-node manifests.
 
-Optional SIE embeddings: point the agent at a separately installed SIE service via `SIE_BASE_URL`; start with CPU placement and pin the chosen image/model. Do not allocate a second GPU implicitly. Local experimentation: `docker compose -f compose.yaml -f compose.sie.yaml up --build`. SIE deployment and live embedding quality have not been validated here.
+Do not preserve or restore the K3s data directory across replacement VMs. Node
+certificates and identity are rebuilt; persistent application data is reattached.
 
-For a Linux GPU development machine, use the pinned Ray LLM image with `serve run deploy/serve.yaml`, mounting the file and making the NVIDIA GPU visible. The macOS mock setup does not run BF16 vLLM.
+## Bootstrap the control node
+
+```bash
+./scripts/deploy_lambda.sh --host CONTROL_PUBLIC_IP
+```
+
+The script reuses compatible existing Docker/containerd packages, installs K3s,
+the NVIDIA runtime/device plugin, KubeRay and monitoring, builds the application
+image, deploys GraphServe and SIE, and saves the generated agent key in the
+ignored local file `artifacts/lambda-deployment.env`.
+
+## Join two GPU workers
+
+```bash
+./scripts/join_lambda_workers.sh \
+  --server CONTROL_PUBLIC_IP \
+  --worker WORKER_1_PUBLIC_IP \
+  --worker WORKER_2_PUBLIC_IP
+```
+
+The join script installs the K3s agent and NVIDIA runtime integration without
+replacing K3s containerd. It labels the control and worker roles and waits for
+Kubernetes to advertise one GPU on each worker.
+
+## Deploy a measured profile
+
+```bash
+kubectl -n repo-agent apply -f deploy/k8s/rayservice-multinode-baseline.yaml
+kubectl -n repo-agent wait --for=condition=Ready rayservice/repo-llm --timeout=60m
+```
+
+The prefix-aware alternative is
+`deploy/k8s/rayservice-prefix-aware.yaml`. With only two GPUs, stop the current
+RayService before switching profiles because old and new clusters cannot coexist
+during KubeRay's replacement rollout.
+
+Validate placement and health:
+
+```bash
+kubectl get nodes -L graphserve.io/role,nvidia.com/gpu.present -o wide
+kubectl -n repo-agent get pods -o wide
+kubectl -n repo-agent get rayservice repo-llm
+```
+
+## Private access
+
+nginx, Grafana and Prometheus listen on control-node loopback. Tunnel them:
+
+```bash
+ssh -i "$HOME/.ssh/week-7-key.pem" -N \
+  -L 8080:127.0.0.1:8080 \
+  -L 3000:127.0.0.1:3000 \
+  -L 9090:127.0.0.1:9090 \
+  ubuntu@CONTROL_PUBLIC_IP
+```
+
+Use `http://localhost:8080`, `http://localhost:3000`, and
+`http://localhost:9090`. Keep Ray and vLLM private.
+
+## Rebuild and cost behavior
+
+Lambda instances cannot be paused without continuing cost. Terminate instances
+when measurement ends; the shared filesystem preserves expensive model and SIE
+downloads. A later cluster is recreated with the same scripts and reuses those
+caches. Confirm benchmark results have also been copied into the repository
+before terminating the final nodes.

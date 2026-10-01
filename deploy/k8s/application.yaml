@@ -3,17 +3,6 @@ kind: Namespace
 metadata:
   name: repo-agent
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: repositories
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Gi
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,6 +19,8 @@ spec:
       labels:
         app: agent
     spec:
+      nodeSelector:
+        graphserve.io/role: control
       automountServiceAccountToken: false
       containers:
       - name: agent
@@ -55,6 +46,10 @@ spec:
           value: real
         - name: INFERENCE_BASE_URL
           value: http://nginx:8081
+        - name: SIE_BASE_URL
+          value: http://sie:8080
+        - name: SIE_MODEL
+          value: sentence-transformers/all-MiniLM-L6-v2
         - name: AGENT_API_KEY
           valueFrom:
             secretKeyRef:
@@ -100,6 +95,8 @@ spec:
       labels:
         app: gateway
     spec:
+      nodeSelector:
+        graphserve.io/role: control
       automountServiceAccountToken: false
       containers:
       - name: gateway
@@ -161,6 +158,8 @@ spec:
       labels:
         app: nginx
     spec:
+      nodeSelector:
+        graphserve.io/role: control
       automountServiceAccountToken: false
       containers:
       - name: nginx

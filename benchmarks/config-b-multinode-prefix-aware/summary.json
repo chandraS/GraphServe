@@ -1,0 +1,70 @@
+{
+  "started_at": "2026-10-01T04:27:28.085953+00:00",
+  "repository_id": "46104a869aaa639f02058087",
+  "scope": "class9",
+  "concurrencies": [
+    1,
+    2,
+    4
+  ],
+  "requests_per_phase": 12,
+  "warmup_requests": 2,
+  "phases": [
+    {
+      "concurrency": 1,
+      "requests": 12,
+      "successful": 12,
+      "failed": 0,
+      "status_counts": {
+        "200": 12
+      },
+      "elapsed_s": 83.91341191716492,
+      "request_throughput_per_s": 0.14300455345381252,
+      "latency_p50_s": 6.149816167075187,
+      "latency_p95_s": 10.74817528114654,
+      "latency_max_s": 10.863410708494484,
+      "prompt_tokens": 60974,
+      "completion_tokens": 3235,
+      "total_tokens_per_s": 765.1816143929874,
+      "metrics_file": "metrics-c1.json"
+    },
+    {
+      "concurrency": 2,
+      "requests": 12,
+      "successful": 12,
+      "failed": 0,
+      "status_counts": {
+        "200": 12
+      },
+      "elapsed_s": 44.177052333019674,
+      "request_throughput_per_s": 0.2716342391869076,
+      "latency_p50_s": 5.781106104142964,
+      "latency_p95_s": 13.414296835893763,
+      "latency_max_s": 14.253569084219635,
+      "prompt_tokens": 60974,
+      "completion_tokens": 3463,
+      "total_tokens_per_s": 1458.607955873897,
+      "metrics_file": "metrics-c2.json"
+    },
+    {
+      "concurrency": 4,
+      "requests": 12,
+      "successful": 8,
+      "failed": 4,
+      "status_counts": {
+        "200": 8,
+        "502": 4
+      },
+      "elapsed_s": 212.87372287549078,
+      "request_throughput_per_s": 0.03758096533445406,
+      "latency_p50_s": 43.60443966696039,
+      "latency_p95_s": 80.91897777728737,
+      "latency_max_s": 81.14786349982023,
+      "prompt_tokens": 40399,
+      "completion_tokens": 2018,
+      "total_tokens_per_s": 199.25897582394225,
+      "metrics_file": "metrics-c4.json"
+    }
+  ],
+  "finished_at": "2026-10-01T04:33:32.799344+00:00"
+}
