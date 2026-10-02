@@ -1,0 +1,234 @@
+apiVersion: ray.io/v1
+kind: RayService
+metadata:
+  name: repo-llm-a
+  labels:
+    graphserve.io/orchestrated: 'true'
+    graphserve.io/worker-id: a
+spec:
+  serveConfigV2: "applications:\n- name: qwen\n  route_prefix: /\n  import_path: ray.serve.llm:build_openai_app\n\
+    \  args:\n    llm_configs:\n    - model_loading_config:\n        model_id: qwen-coder\n\
+    \        model_source: Qwen/Qwen2.5-Coder-7B-Instruct\n      engine_kwargs:\n\
+    \        dtype: bfloat16\n        tensor_parallel_size: 1\n        max_model_len:\
+    \ 8192\n        gpu_memory_utilization: 0.9\n        max_num_seqs: 8\n       \
+    \ enable_prefix_caching: true\n      placement_group_config:\n        bundles:\n\
+    \        - CPU: 2\n          GPU: 1\n        strategy: STRICT_PACK\n      deployment_config:\n\
+    \        num_replicas: 1\n        max_ongoing_requests: 8\n"
+  rayClusterConfig:
+    rayVersion: 2.58.0
+    enableInTreeAutoscaling: false
+    headGroupSpec:
+      rayStartParams:
+        dashboard-host: 0.0.0.0
+        num-cpus: '2'
+        num-gpus: '0'
+        metrics-export-port: '8080'
+      template:
+        metadata:
+          labels:
+            component: ray
+            graphserve.io/workload: ray-head
+            graphserve.io/worker-id: a
+        spec:
+          nodeSelector:
+            graphserve.io/role: control
+          containers:
+          - name: ray-head
+            image: rayproject/ray-llm:2.58.0-py312-cu130
+            ports:
+            - name: metrics
+              containerPort: 8080
+            - name: gcs
+              containerPort: 6379
+            - name: dashboard
+              containerPort: 8265
+            - name: client
+              containerPort: 10001
+            - name: serve
+              containerPort: 8000
+            resources:
+              requests:
+                cpu: '2'
+                memory: 6Gi
+              limits:
+                cpu: '4'
+                memory: 8Gi
+          automountServiceAccountToken: false
+    workerGroupSpecs:
+    - groupName: gpu
+      replicas: 1
+      minReplicas: 1
+      maxReplicas: 1
+      rayStartParams:
+        num-cpus: '12'
+        num-gpus: '1'
+        metrics-export-port: '8080'
+      template:
+        metadata:
+          labels:
+            component: ray
+            graphserve.io/workload: llm-worker
+            graphserve.io/worker-id: a
+        spec:
+          runtimeClassName: nvidia
+          nodeSelector:
+            graphserve.io/role: gpu-worker
+            graphserve.io/worker-id: a
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: graphserve.io/workload
+                    operator: In
+                    values:
+                    - llm-worker
+                topologyKey: kubernetes.io/hostname
+          containers:
+          - name: ray-worker
+            image: rayproject/ray-llm:2.58.0-py312-cu130
+            ports:
+            - name: metrics
+              containerPort: 8080
+            resources:
+              requests:
+                cpu: '8'
+                memory: 48Gi
+                nvidia.com/gpu: '1'
+              limits:
+                cpu: '16'
+                memory: 64Gi
+                nvidia.com/gpu: '1'
+            volumeMounts:
+            - name: shm
+              mountPath: /dev/shm
+            - name: hf-cache
+              mountPath: /home/ray/.cache/huggingface
+          automountServiceAccountToken: false
+          volumes:
+          - name: shm
+            emptyDir:
+              medium: Memory
+              sizeLimit: 16Gi
+          - name: hf-cache
+            hostPath:
+              path: /mnt/graphserve-data/huggingface
+              type: Directory
+
+---
+apiVersion: ray.io/v1
+kind: RayService
+metadata:
+  name: repo-llm-b
+  labels:
+    graphserve.io/orchestrated: 'true'
+    graphserve.io/worker-id: b
+spec:
+  serveConfigV2: "applications:\n- name: qwen\n  route_prefix: /\n  import_path: ray.serve.llm:build_openai_app\n\
+    \  args:\n    llm_configs:\n    - model_loading_config:\n        model_id: qwen-coder\n\
+    \        model_source: Qwen/Qwen2.5-Coder-7B-Instruct\n      engine_kwargs:\n\
+    \        dtype: bfloat16\n        tensor_parallel_size: 1\n        max_model_len:\
+    \ 8192\n        gpu_memory_utilization: 0.9\n        max_num_seqs: 8\n       \
+    \ enable_prefix_caching: true\n      placement_group_config:\n        bundles:\n\
+    \        - CPU: 2\n          GPU: 1\n        strategy: STRICT_PACK\n      deployment_config:\n\
+    \        num_replicas: 1\n        max_ongoing_requests: 8\n"
+  rayClusterConfig:
+    rayVersion: 2.58.0
+    enableInTreeAutoscaling: false
+    headGroupSpec:
+      rayStartParams:
+        dashboard-host: 0.0.0.0
+        num-cpus: '2'
+        num-gpus: '0'
+        metrics-export-port: '8080'
+      template:
+        metadata:
+          labels:
+            component: ray
+            graphserve.io/workload: ray-head
+            graphserve.io/worker-id: b
+        spec:
+          nodeSelector:
+            graphserve.io/role: control
+          containers:
+          - name: ray-head
+            image: rayproject/ray-llm:2.58.0-py312-cu130
+            ports:
+            - name: metrics
+              containerPort: 8080
+            - name: gcs
+              containerPort: 6379
+            - name: dashboard
+              containerPort: 8265
+            - name: client
+              containerPort: 10001
+            - name: serve
+              containerPort: 8000
+            resources:
+              requests:
+                cpu: '2'
+                memory: 6Gi
+              limits:
+                cpu: '4'
+                memory: 8Gi
+          automountServiceAccountToken: false
+    workerGroupSpecs:
+    - groupName: gpu
+      replicas: 1
+      minReplicas: 1
+      maxReplicas: 1
+      rayStartParams:
+        num-cpus: '12'
+        num-gpus: '1'
+        metrics-export-port: '8080'
+      template:
+        metadata:
+          labels:
+            component: ray
+            graphserve.io/workload: llm-worker
+            graphserve.io/worker-id: b
+        spec:
+          runtimeClassName: nvidia
+          nodeSelector:
+            graphserve.io/role: gpu-worker
+            graphserve.io/worker-id: b
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: graphserve.io/workload
+                    operator: In
+                    values:
+                    - llm-worker
+                topologyKey: kubernetes.io/hostname
+          containers:
+          - name: ray-worker
+            image: rayproject/ray-llm:2.58.0-py312-cu130
+            ports:
+            - name: metrics
+              containerPort: 8080
+            resources:
+              requests:
+                cpu: '8'
+                memory: 48Gi
+                nvidia.com/gpu: '1'
+              limits:
+                cpu: '16'
+                memory: 64Gi
+                nvidia.com/gpu: '1'
+            volumeMounts:
+            - name: shm
+              mountPath: /dev/shm
+            - name: hf-cache
+              mountPath: /home/ray/.cache/huggingface
+          automountServiceAccountToken: false
+          volumes:
+          - name: shm
+            emptyDir:
+              medium: Memory
+              sizeLimit: 16Gi
+          - name: hf-cache
+            hostPath:
+              path: /mnt/graphserve-data/huggingface
+              type: Directory

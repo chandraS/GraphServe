@@ -7,8 +7,11 @@ fail() { echo "ERROR: $*" >&2; exit 1; }
 trap 'echo "Worker bootstrap failed at line $LINENO" >&2' ERR
 
 server_private_ip="${1:-}"
+worker_id="${2:-}"
 [[ "$server_private_ip" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]] \
   || fail "Pass the K3s server private IPv4 address as the first argument"
+[[ "$worker_id" == "a" || "$worker_id" == "b" ]] \
+  || fail "Pass worker identity a or b as the second argument"
 IFS= read -r k3s_token
 IFS= read -r requested_storage_root
 [[ -n "$k3s_token" ]] || fail "K3s token was not supplied"
@@ -73,6 +76,7 @@ token: "${k3s_token}"
 default-runtime: nvidia
 node-label:
   - "graphserve.io/role=gpu-worker"
+  - "graphserve.io/worker-id=${worker_id}"
   - "nvidia.com/gpu.present=true"
 EOF
 

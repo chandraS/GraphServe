@@ -1,6 +1,6 @@
 # Configuration A: two-worker default routing
 
-This run uses one Ray/vLLM replica on each of two A100 40GB worker nodes. The Ray head and GraphServe CPU services run on a third control node.
+This historical pre-orchestrator run uses one Ray/vLLM replica on each of two A100 40GB worker nodes. The Ray head and GraphServe CPU services run on a third control node.
 
 - Ray Serve LLM: 2.58.0
 - vLLM: bundled 0.26.0
@@ -20,4 +20,4 @@ All 36 measured requests succeeded:
 | 2 | 0.285 | 6.46 | 10.73 | 1,524 |
 | 4 | 0.492 | 6.62 | 12.06 | 2,633 |
 
-This is the comparison baseline for the two-worker prefix-aware profile. The application remains non-streaming, so these artifacts do not establish per-request TTFT.
+This is the historical comparison baseline for the two-worker prefix-aware profile. The application remains non-streaming, so these artifacts do not establish per-request TTFT.

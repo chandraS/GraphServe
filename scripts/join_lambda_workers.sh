@@ -61,15 +61,17 @@ k3s_token="$(ssh "${ssh_options[@]}" "$server_target" 'sudo cat /var/lib/rancher
 [[ -n "$k3s_token" ]] || { echo "Could not read the K3s node token" >&2; exit 1; }
 
 echo "K3s server private address: $server_private_ip"
-for worker in "${workers[@]}"; do
+for index in "${!workers[@]}"; do
+  worker="${workers[$index]}"
+  worker_id="$([[ "$index" == "0" ]] && echo a || echo b)"
   target="${ssh_user}@${worker}"
-  echo "Checking $target"
+  echo "Checking $target as worker $worker_id"
   ssh "${ssh_options[@]}" "$target" 'nvidia-smi --query-gpu=name,memory.total --format=csv,noheader'
   ssh "${ssh_options[@]}" "$target" 'mkdir -p "$HOME/GraphServe/scripts"'
   scp "${ssh_options[@]}" "$remote_bootstrap" "$target:GraphServe/scripts/"
   printf '%s\n%s\n' "$k3s_token" "$storage_root" \
     | ssh "${ssh_options[@]}" "$target" \
-      "bash GraphServe/scripts/bootstrap_lambda_worker_remote.sh '$server_private_ip'"
+      "bash GraphServe/scripts/bootstrap_lambda_worker_remote.sh '$server_private_ip' '$worker_id'"
 done
 
 echo "Waiting for all three Kubernetes nodes"
@@ -78,7 +80,9 @@ ssh "${ssh_options[@]}" "$server_target" \
 ssh "${ssh_options[@]}" "$server_target" \
   'sudo k3s kubectl label node "$(hostname -s)" graphserve.io/role=control --overwrite; sudo k3s kubectl get nodes -L graphserve.io/role,nvidia.com/gpu.present -o wide'
 
-for worker in "${workers[@]}"; do
+for index in "${!workers[@]}"; do
+  worker="${workers[$index]}"
+  worker_id="$([[ "$index" == "0" ]] && echo a || echo b)"
   node_name="$(ssh "${ssh_options[@]}" "${ssh_user}@${worker}" 'hostname -s')"
   for _ in $(seq 1 60); do
     gpu="$(ssh "${ssh_options[@]}" "$server_target" \
@@ -88,6 +92,8 @@ for worker in "${workers[@]}"; do
   done
   [[ "${gpu:-0}" =~ ^[1-9][0-9]*$ ]] \
     || { echo "Kubernetes did not expose a GPU on $node_name" >&2; exit 1; }
+  ssh "${ssh_options[@]}" "$server_target" \
+    "sudo k3s kubectl label node '$node_name' graphserve.io/role=gpu-worker graphserve.io/worker-id='$worker_id' --overwrite"
 done
 
 echo "Three-node K3s cluster is ready. The existing RayService was not changed."

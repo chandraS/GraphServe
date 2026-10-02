@@ -14,12 +14,12 @@ for answers and is not part of GraphServe's live serving path.
 | Live serving metrics | Met | Prometheus snapshots include Ray/vLLM TTFT, E2E latency, tokens, running/waiting requests, KV usage, Ray queues, GPU utilization and GPU memory. | Add missing time-per-output-token series if the image exposes it. |
 | Engine stays private | Met | Ray, Prometheus and Grafana are cluster-internal or VM-loopback and accessed with SSH tunnels. | Preserve this topology or add authenticated TLS ingress. |
 | Engine scheduler is not reimplemented | Met | vLLM owns batching, waiting, KV block tables, preemption and kernels. | Gateway controls must stop at guard/admit/place/queue. |
-| Explicit guard before GPU work | Partial | Authentication, body limits, model/output validation, URL/SHA validation, path containment and source verification exist. | Add a named guard decision, reason-labelled metrics and direct gateway tests. |
-| Admission control | Not met | The gateway has a four-slot process-local semaphore and a one-second acquisition timeout. | Add tenant/token budgets, deadline and queue estimates, KV/health inputs, typed rejection reasons and `Retry-After`. |
-| Explicit placement | Partial | Ray's default router or prefix-affinity router selects between two replicas. The gateway cannot select or identify a specific worker. | Expose stable worker endpoints or worker-aware routing and record the selected worker and route reason. |
-| Bounded visible queue | Not met | The semaphore bounds in-flight calls but exposes no per-worker queue, priority or depth metric. | Add bounded per-worker queues and `orch_replica_queue_depth`. |
-| KV affinity and hop behavior | Partial | Configuration B enables per-replica automatic prefix caching and prefix-affinity routing. No KV data moves between nodes. | Record prefix hits, cold recomputation and stale affinity eviction. A real KV-transfer requirement would need a separate backend. |
-| Stay/leave overflow policy | Not met | Busy capacity returns 429; upstream failures become 503 at the gateway and usually 502 at the agent. No overflow provider is configured. | Preserve typed status codes and add an explicit, bounded overflow policy only if the rubric requires a real provider. |
+| Explicit guard before GPU work | Met | The named gateway guard rejects body, JSON, model, stream, message, tool, output and context-token violations before admission; `orch_guard_decisions_total` records reasons and direct tests cover rejection. | Add policy tests when new request shapes are supported. |
+| Admission control | Met | Admission uses a tenant token window, deadline/queue estimates, worker health and per-worker KV telemetry when samples are available; its own queue and in-flight state remain available at all times. It returns typed 429/503 reasons and `Retry-After`. | Calibrate thresholds from the new overload measurements. |
+| Explicit placement | Met | Two stable single-replica RayServices expose workers `a` and `b`; the gateway selects one using prefix affinity plus load inputs and returns worker and reason headers. | Measure balance and affinity under shared/unique-prefix mixes. |
+| Bounded visible queue | Met | Each worker has an eight-entry priority queue and four dispatch slots; interactive requests precede batch work and `orch_replica_queue_depth` exposes worker/priority depth. | Tune queue and dispatch sizes from overload results. |
+| KV affinity and hop behavior | Partial | A bounded TTL affinity map records same-worker, cold-start and cold-recompute outcomes plus evictions. No KV data moves between nodes and same-worker is only a warm candidate. | Correlate affinity with engine prefix-cache hit metrics before claiming a real hit. |
+| Stay/leave overflow policy | Met | Guard/admission 429 remains local; engine 503/529 and unavailability follow the declared `stay` policy and are counted by `orch_overflow_total`; the agent preserves typed status and `Retry-After`. | Add a named secondary model only if a measured capacity plan justifies leaving. |
 | GPU/KV capacity reasoning | Partial | `DESIGN.md` derives 56 KiB per token and saved metrics show low KV occupancy for the successful baseline. | Record effective startup allocation and observed prompt-length distribution. |
 | Application-shaped stress traffic | Partial | Both profiles have raw requests and Prometheus ranges for concurrency 1, 2 and 4. | Add repeated runs, shared/unique-prefix isolation, tenant/priority mixes and a separate overload phase. |
 | Streaming per-request TTFT | Not met | Prometheus provides aggregate TTFT; `/questions` is non-streaming. | Add an SSE measurement path with request IDs and first-token timestamps. |
@@ -27,22 +27,19 @@ for answers and is not part of GraphServe's live serving path.
 | Notebook and PDF | Partial | `submission.ipynb` reproduces the current A/B tables and plots from committed evidence. | Add streaming/quality results, execute the final version, and export/review the PDF. |
 | Reproducible revisions | Partial | Environment files freeze Kubernetes, driver, Ray image and manifests; the model revision is recorded in `DESIGN.md`. | Pin container image digests and the model revision directly in deployment configuration. |
 
-## Measured request path
+## Current request path
 
 ```text
-user -> auth/input validation -> Graphify retrieval -> SIE rerank
-     -> token-aware context assembly -> nginx -> gateway semaphore
-     -> Ray Serve router -> one of two vLLM replicas
+user -> auth/input validation -> Graphify retrieval -> hosted SIE rerank
+     -> token-aware context assembly -> nginx -> named guard -> admission
+     -> stable worker placement -> bounded per-worker queue
+     -> Ray Serve -> vLLM -> status-preserving response
      -> source verification -> cited response
 ```
 
-## Remaining target path
-
-```text
-user -> retrieval -> named guard -> admission -> worker placement
-     -> bounded worker queue -> same-worker cache affinity or cold recompute
-     -> vLLM -> status-preserving response -> source verification
-```
+A repeated live request with the same repository/scope prefix was placed on the
+same stable worker with `placement=prefix_affinity` and `hop=same_worker`. That
+label means the request is a warm-cache candidate; it does not claim a cache hit.
 
 The project deliberately does not claim cross-node KV transfer. LMCache, llm-d,
 Mooncake, and prefill/decode disaggregation remain outside the selected scope.

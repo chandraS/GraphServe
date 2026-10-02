@@ -86,16 +86,19 @@ def test_sie_embeddings_stay_in_agent(monkeypatch):
     requests=[]
     def handler(request):
         assert request.url.path=='/v1/embeddings'
-        assert request.headers.get('authorization') is None
+        assert request.headers.get('authorization') == 'Bearer hosted-test-key'
         requests.append(request)
         if len(requests)==1:
             return httpx.Response(503,json={'detail':'model loading'})
         return httpx.Response(200,json={'data':[{'index':2,'embedding':[1.,0.]},{'index':0,'embedding':[1.,0.]},{'index':1,'embedding':[0.,1.]}]})
     async def no_sleep(_):
         pass
-    monkeypatch.setenv('SIE_BASE_URL','http://sie')
+    monkeypatch.setenv('SIE_BASE_URL','https://hosted.sie.example/v1')
+    monkeypatch.setenv('SIE_API_KEY','hosted-test-key')
     monkeypatch.setattr(sie.asyncio,'sleep',no_sleep)
     monkeypatch.setattr(sie.httpx,'AsyncClient',lambda **kwargs: original(transport=httpx.MockTransport(handler),**kwargs))
+    assert sie.embeddings_url('https://hosted.sie.example') == 'https://hosted.sie.example/v1/embeddings'
+    assert sie.embeddings_url('https://hosted.sie.example/v1/') == 'https://hosted.sie.example/v1/embeddings'
     result=asyncio.run(sie.rerank('question',[{'id':'S1','text':'first'},{'id':'S2','text':'second'}]))
     assert len(requests)==2
     assert [x['id'] for x in result]==['S2','S1']
@@ -162,8 +165,10 @@ def test_real_inference_repairs_uncited_output(snapshot, monkeypatch, tmp_path_f
             return self
         async def __aexit__(self, *args):
             pass
-        async def post(self, url, json):
+        async def post(self, url, json, headers=None):
             calls.append(json)
+            assert headers["X-GraphServe-Tenant"] == key
+            assert headers["X-GraphServe-Priority"] == "interactive"
             citation = [] if len(calls) == 1 else ['S1']
             proposal = [] if len(calls) == 1 else [
                 {'text': 'An unsupported change', 'citations': []}
@@ -177,8 +182,8 @@ def test_real_inference_repairs_uncited_output(snapshot, monkeypatch, tmp_path_f
             })
 
     monkeypatch.setattr(api.httpx, 'AsyncClient', FakeAsyncClient)
+    monkeypatch.setattr(api, 'Context', lambda mock: core.Context(mock=True))
     with TestClient(api.app) as client:
-        monkeypatch.setattr(api, 'context', core.Context(mock=True))
         response = client.post('/questions', headers={'Authorization': 'Bearer test'},
                                json={'repository_id': key, 'question': 'greet'})
     assert response.status_code == 200, response.text

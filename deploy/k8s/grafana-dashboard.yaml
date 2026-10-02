@@ -4,727 +4,364 @@ metadata:
   name: repo-agent-dashboard
   namespace: repo-agent
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: '1'
 data:
-  repo-agent.json: |-
-    {
-      "title": "Repository agent and serving",
-      "uid": "repo-agent",
-      "schemaVersion": 39,
-      "version": 2,
-      "refresh": "10s",
-      "time": {
-        "from": "now-1h",
-        "to": "now"
-      },
-      "tags": [
-        "graphserve",
-        "ray",
-        "vllm"
-      ],
-      "panels": [
-        {
-          "id": 1,
-          "title": "Agent request rate by operation/status",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 0,
-            "y": 0,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "reqps"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "sum by (operation, status) (rate(agent_requests_total[5m]))",
-              "refId": "A",
-              "legendFormat": "{{operation}} \u00b7 {{status}}"
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "title": "Question latency",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 12,
-            "y": 0,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "s"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "histogram_quantile(0.50, sum by (le) (rate(agent_request_seconds_bucket[5m])))",
-              "refId": "A",
-              "legendFormat": "p50"
-            },
-            {
-              "expr": "histogram_quantile(0.95, sum by (le) (rate(agent_request_seconds_bucket[5m])))",
-              "refId": "B",
-              "legendFormat": "p95"
-            }
-          ]
-        },
-        {
-          "id": 3,
-          "title": "Gateway request rate by status",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 0,
-            "y": 8,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "reqps"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "sum by (status) (rate(gateway_requests_total[5m]))",
-              "refId": "A",
-              "legendFormat": "{{status}}"
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "title": "Gateway inference latency",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 12,
-            "y": 8,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "s"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "histogram_quantile(0.50, sum by (le) (rate(gateway_inference_seconds_bucket[5m])))",
-              "refId": "A",
-              "legendFormat": "p50"
-            },
-            {
-              "expr": "histogram_quantile(0.95, sum by (le) (rate(gateway_inference_seconds_bucket[5m])))",
-              "refId": "B",
-              "legendFormat": "p95"
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "title": "vLLM time to first token",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 0,
-            "y": 16,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "s"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "histogram_quantile(0.50, sum by (le) (rate(ray_vllm_time_to_first_token_seconds_bucket[5m])))",
-              "refId": "A",
-              "legendFormat": "p50"
-            },
-            {
-              "expr": "histogram_quantile(0.95, sum by (le) (rate(ray_vllm_time_to_first_token_seconds_bucket[5m])))",
-              "refId": "B",
-              "legendFormat": "p95"
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "title": "vLLM end-to-end request latency",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 12,
-            "y": 16,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "s"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "histogram_quantile(0.50, sum by (le) (rate(ray_vllm_e2e_request_latency_seconds_bucket[5m])))",
-              "refId": "A",
-              "legendFormat": "p50"
-            },
-            {
-              "expr": "histogram_quantile(0.95, sum by (le) (rate(ray_vllm_e2e_request_latency_seconds_bucket[5m])))",
-              "refId": "B",
-              "legendFormat": "p95"
-            }
-          ]
-        },
-        {
-          "id": 7,
-          "title": "vLLM time per output token",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 0,
-            "y": 24,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "s"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "histogram_quantile(0.50, sum by (le) (rate(ray_vllm_time_per_output_token_seconds_bucket[5m])))",
-              "refId": "A",
-              "legendFormat": "p50"
-            },
-            {
-              "expr": "histogram_quantile(0.95, sum by (le) (rate(ray_vllm_time_per_output_token_seconds_bucket[5m])))",
-              "refId": "B",
-              "legendFormat": "p95"
-            }
-          ]
-        },
-        {
-          "id": 8,
-          "title": "vLLM token throughput",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 12,
-            "y": 24,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "ops"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "sum(rate(ray_vllm_prompt_tokens_total[5m]))",
-              "refId": "A",
-              "legendFormat": "prompt tokens/s"
-            },
-            {
-              "expr": "sum(rate(ray_vllm_generation_tokens_total[5m]))",
-              "refId": "B",
-              "legendFormat": "generated tokens/s"
-            }
-          ]
-        },
-        {
-          "id": 9,
-          "title": "vLLM completed request rate",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 0,
-            "y": 32,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "reqps"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "sum by (finished_reason) (rate(ray_vllm_request_success_total[5m]))",
-              "refId": "A",
-              "legendFormat": "{{finished_reason}}"
-            }
-          ]
-        },
-        {
-          "id": 10,
-          "title": "vLLM running and waiting requests",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 12,
-            "y": 32,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "sum(ray_vllm_num_requests_running)",
-              "refId": "A",
-              "legendFormat": "running"
-            },
-            {
-              "expr": "sum(ray_vllm_num_requests_waiting)",
-              "refId": "B",
-              "legendFormat": "waiting"
-            }
-          ]
-        },
-        {
-          "id": 11,
-          "title": "vLLM KV-cache usage",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 0,
-            "y": 40,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "percentunit"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "max(ray_vllm_kv_cache_usage_perc)",
-              "refId": "A",
-              "legendFormat": "KV cache"
-            }
-          ]
-        },
-        {
-          "id": 12,
-          "title": "Ray Serve ongoing requests",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 12,
-            "y": 40,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "sum(ray_serve_num_ongoing_http_requests)",
-              "refId": "A",
-              "legendFormat": "HTTP proxy"
-            },
-            {
-              "expr": "sum(ray_serve_num_ongoing_requests_at_replicas)",
-              "refId": "B",
-              "legendFormat": "replicas"
-            },
-            {
-              "expr": "sum(ray_serve_deployment_queued_queries)",
-              "refId": "C",
-              "legendFormat": "queued"
-            }
-          ]
-        },
-        {
-          "id": 13,
-          "title": "GPU utilization",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 0,
-            "y": 48,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "percent"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "max(ray_node_gpus_utilization{RayNodeType=\"worker\"})",
-              "refId": "A",
-              "legendFormat": "A100 GPU"
-            }
-          ]
-        },
-        {
-          "id": 14,
-          "title": "GPU memory used",
-          "type": "timeseries",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "x": 12,
-            "y": 48,
-            "w": 12,
-            "h": 8
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "fillOpacity": 10,
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "unit": "mbytes"
-            },
-            "overrides": []
-          },
-          "options": {
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "max(ray_node_gram_used{RayNodeType=\"worker\"})",
-              "refId": "A",
-              "legendFormat": "A100 memory"
-            }
-          ]
-        }
-      ]
-    }
+  repo-agent.json: "{\n  \"title\": \"Repository agent and serving\",\n  \"uid\":\
+    \ \"repo-agent\",\n  \"schemaVersion\": 39,\n  \"version\": 3,\n  \"refresh\"\
+    : \"10s\",\n  \"time\": {\n    \"from\": \"now-1h\",\n    \"to\": \"now\"\n  },\n\
+    \  \"tags\": [\n    \"graphserve\",\n    \"ray\",\n    \"vllm\"\n  ],\n  \"panels\"\
+    : [\n    {\n      \"id\": 1,\n      \"title\": \"Agent request rate by operation/status\"\
+    ,\n      \"type\": \"timeseries\",\n      \"datasource\": {\n        \"type\"\
+    : \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n      \"gridPos\"\
+    : {\n        \"x\": 0,\n        \"y\": 0,\n        \"w\": 12,\n        \"h\":\
+    \ 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n          \"\
+    custom\": {\n            \"drawStyle\": \"line\",\n            \"lineInterpolation\"\
+    : \"linear\",\n            \"lineWidth\": 1,\n            \"fillOpacity\": 10,\n\
+    \            \"showPoints\": \"never\",\n            \"spanNulls\": true\n   \
+    \       },\n          \"unit\": \"reqps\"\n        },\n        \"overrides\":\
+    \ []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"sum by (operation, status) (rate(agent_requests_total[5m]))\"\
+    ,\n          \"refId\": \"A\",\n          \"legendFormat\": \"{{operation}} \\\
+    u00b7 {{status}}\"\n        }\n      ]\n    },\n    {\n      \"id\": 2,\n    \
+    \  \"title\": \"Question latency\",\n      \"type\": \"timeseries\",\n      \"\
+    datasource\": {\n        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\
+    \n      },\n      \"gridPos\": {\n        \"x\": 12,\n        \"y\": 0,\n    \
+    \    \"w\": 12,\n        \"h\": 8\n      },\n      \"fieldConfig\": {\n      \
+    \  \"defaults\": {\n          \"custom\": {\n            \"drawStyle\": \"line\"\
+    ,\n            \"lineInterpolation\": \"linear\",\n            \"lineWidth\":\
+    \ 1,\n            \"fillOpacity\": 10,\n            \"showPoints\": \"never\"\
+    ,\n            \"spanNulls\": true\n          },\n          \"unit\": \"s\"\n\
+    \        },\n        \"overrides\": []\n      },\n      \"options\": {\n     \
+    \   \"legend\": {\n          \"displayMode\": \"list\",\n          \"placement\"\
+    : \"bottom\",\n          \"showLegend\": true\n        },\n        \"tooltip\"\
+    : {\n          \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n\
+    \      },\n      \"targets\": [\n        {\n          \"expr\": \"histogram_quantile(0.50,\
+    \ sum by (le) (rate(agent_request_seconds_bucket[5m])))\",\n          \"refId\"\
+    : \"A\",\n          \"legendFormat\": \"p50\"\n        },\n        {\n       \
+    \   \"expr\": \"histogram_quantile(0.95, sum by (le) (rate(agent_request_seconds_bucket[5m])))\"\
+    ,\n          \"refId\": \"B\",\n          \"legendFormat\": \"p95\"\n        }\n\
+    \      ]\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Gateway request\
+    \ rate by status\",\n      \"type\": \"timeseries\",\n      \"datasource\": {\n\
+    \        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n\
+    \      \"gridPos\": {\n        \"x\": 0,\n        \"y\": 8,\n        \"w\": 12,\n\
+    \        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n\
+    \          \"custom\": {\n            \"drawStyle\": \"line\",\n            \"\
+    lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n            \"\
+    fillOpacity\": 10,\n            \"showPoints\": \"never\",\n            \"spanNulls\"\
+    : true\n          },\n          \"unit\": \"reqps\"\n        },\n        \"overrides\"\
+    : []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"sum by (status) (rate(gateway_requests_total[5m]))\",\n\
+    \          \"refId\": \"A\",\n          \"legendFormat\": \"{{status}}\"\n   \
+    \     }\n      ]\n    },\n    {\n      \"id\": 4,\n      \"title\": \"Gateway\
+    \ inference latency\",\n      \"type\": \"timeseries\",\n      \"datasource\"\
+    : {\n        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n    \
+    \  },\n      \"gridPos\": {\n        \"x\": 12,\n        \"y\": 8,\n        \"\
+    w\": 12,\n        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\"\
+    : {\n          \"custom\": {\n            \"drawStyle\": \"line\",\n         \
+    \   \"lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n      \
+    \      \"fillOpacity\": 10,\n            \"showPoints\": \"never\",\n        \
+    \    \"spanNulls\": true\n          },\n          \"unit\": \"s\"\n        },\n\
+    \        \"overrides\": []\n      },\n      \"options\": {\n        \"legend\"\
+    : {\n          \"displayMode\": \"list\",\n          \"placement\": \"bottom\"\
+    ,\n          \"showLegend\": true\n        },\n        \"tooltip\": {\n      \
+    \    \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n      },\n\
+    \      \"targets\": [\n        {\n          \"expr\": \"histogram_quantile(0.50,\
+    \ sum by (le) (rate(gateway_inference_seconds_bucket[5m])))\",\n          \"refId\"\
+    : \"A\",\n          \"legendFormat\": \"p50\"\n        },\n        {\n       \
+    \   \"expr\": \"histogram_quantile(0.95, sum by (le) (rate(gateway_inference_seconds_bucket[5m])))\"\
+    ,\n          \"refId\": \"B\",\n          \"legendFormat\": \"p95\"\n        }\n\
+    \      ]\n    },\n    {\n      \"id\": 5,\n      \"title\": \"vLLM time to first\
+    \ token\",\n      \"type\": \"timeseries\",\n      \"datasource\": {\n       \
+    \ \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n     \
+    \ \"gridPos\": {\n        \"x\": 0,\n        \"y\": 16,\n        \"w\": 12,\n\
+    \        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n\
+    \          \"custom\": {\n            \"drawStyle\": \"line\",\n            \"\
+    lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n            \"\
+    fillOpacity\": 10,\n            \"showPoints\": \"never\",\n            \"spanNulls\"\
+    : true\n          },\n          \"unit\": \"s\"\n        },\n        \"overrides\"\
+    : []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"histogram_quantile(0.50, sum by (le) (rate(ray_vllm_time_to_first_token_seconds_bucket[5m])))\"\
+    ,\n          \"refId\": \"A\",\n          \"legendFormat\": \"p50\"\n        },\n\
+    \        {\n          \"expr\": \"histogram_quantile(0.95, sum by (le) (rate(ray_vllm_time_to_first_token_seconds_bucket[5m])))\"\
+    ,\n          \"refId\": \"B\",\n          \"legendFormat\": \"p95\"\n        }\n\
+    \      ]\n    },\n    {\n      \"id\": 6,\n      \"title\": \"vLLM end-to-end\
+    \ request latency\",\n      \"type\": \"timeseries\",\n      \"datasource\": {\n\
+    \        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n\
+    \      \"gridPos\": {\n        \"x\": 12,\n        \"y\": 16,\n        \"w\":\
+    \ 12,\n        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\"\
+    : {\n          \"custom\": {\n            \"drawStyle\": \"line\",\n         \
+    \   \"lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n      \
+    \      \"fillOpacity\": 10,\n            \"showPoints\": \"never\",\n        \
+    \    \"spanNulls\": true\n          },\n          \"unit\": \"s\"\n        },\n\
+    \        \"overrides\": []\n      },\n      \"options\": {\n        \"legend\"\
+    : {\n          \"displayMode\": \"list\",\n          \"placement\": \"bottom\"\
+    ,\n          \"showLegend\": true\n        },\n        \"tooltip\": {\n      \
+    \    \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n      },\n\
+    \      \"targets\": [\n        {\n          \"expr\": \"histogram_quantile(0.50,\
+    \ sum by (le) (rate(ray_vllm_e2e_request_latency_seconds_bucket[5m])))\",\n  \
+    \        \"refId\": \"A\",\n          \"legendFormat\": \"p50\"\n        },\n\
+    \        {\n          \"expr\": \"histogram_quantile(0.95, sum by (le) (rate(ray_vllm_e2e_request_latency_seconds_bucket[5m])))\"\
+    ,\n          \"refId\": \"B\",\n          \"legendFormat\": \"p95\"\n        }\n\
+    \      ]\n    },\n    {\n      \"id\": 7,\n      \"title\": \"vLLM time per output\
+    \ token\",\n      \"type\": \"timeseries\",\n      \"datasource\": {\n       \
+    \ \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n     \
+    \ \"gridPos\": {\n        \"x\": 0,\n        \"y\": 24,\n        \"w\": 12,\n\
+    \        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n\
+    \          \"custom\": {\n            \"drawStyle\": \"line\",\n            \"\
+    lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n            \"\
+    fillOpacity\": 10,\n            \"showPoints\": \"never\",\n            \"spanNulls\"\
+    : true\n          },\n          \"unit\": \"s\"\n        },\n        \"overrides\"\
+    : []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"histogram_quantile(0.50, sum by (le) (rate(ray_vllm_time_per_output_token_seconds_bucket[5m])))\"\
+    ,\n          \"refId\": \"A\",\n          \"legendFormat\": \"p50\"\n        },\n\
+    \        {\n          \"expr\": \"histogram_quantile(0.95, sum by (le) (rate(ray_vllm_time_per_output_token_seconds_bucket[5m])))\"\
+    ,\n          \"refId\": \"B\",\n          \"legendFormat\": \"p95\"\n        }\n\
+    \      ]\n    },\n    {\n      \"id\": 8,\n      \"title\": \"vLLM token throughput\"\
+    ,\n      \"type\": \"timeseries\",\n      \"datasource\": {\n        \"type\"\
+    : \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n      \"gridPos\"\
+    : {\n        \"x\": 12,\n        \"y\": 24,\n        \"w\": 12,\n        \"h\"\
+    : 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n          \"\
+    custom\": {\n            \"drawStyle\": \"line\",\n            \"lineInterpolation\"\
+    : \"linear\",\n            \"lineWidth\": 1,\n            \"fillOpacity\": 10,\n\
+    \            \"showPoints\": \"never\",\n            \"spanNulls\": true\n   \
+    \       },\n          \"unit\": \"ops\"\n        },\n        \"overrides\": []\n\
+    \      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"sum(rate(ray_vllm_prompt_tokens_total[5m]))\",\n      \
+    \    \"refId\": \"A\",\n          \"legendFormat\": \"prompt tokens/s\"\n    \
+    \    },\n        {\n          \"expr\": \"sum(rate(ray_vllm_generation_tokens_total[5m]))\"\
+    ,\n          \"refId\": \"B\",\n          \"legendFormat\": \"generated tokens/s\"\
+    \n        }\n      ]\n    },\n    {\n      \"id\": 9,\n      \"title\": \"vLLM\
+    \ completed request rate\",\n      \"type\": \"timeseries\",\n      \"datasource\"\
+    : {\n        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n    \
+    \  },\n      \"gridPos\": {\n        \"x\": 0,\n        \"y\": 32,\n        \"\
+    w\": 12,\n        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\"\
+    : {\n          \"custom\": {\n            \"drawStyle\": \"line\",\n         \
+    \   \"lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n      \
+    \      \"fillOpacity\": 10,\n            \"showPoints\": \"never\",\n        \
+    \    \"spanNulls\": true\n          },\n          \"unit\": \"reqps\"\n      \
+    \  },\n        \"overrides\": []\n      },\n      \"options\": {\n        \"legend\"\
+    : {\n          \"displayMode\": \"list\",\n          \"placement\": \"bottom\"\
+    ,\n          \"showLegend\": true\n        },\n        \"tooltip\": {\n      \
+    \    \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n      },\n\
+    \      \"targets\": [\n        {\n          \"expr\": \"sum by (finished_reason)\
+    \ (rate(ray_vllm_request_success_total[5m]))\",\n          \"refId\": \"A\",\n\
+    \          \"legendFormat\": \"{{finished_reason}}\"\n        }\n      ]\n   \
+    \ },\n    {\n      \"id\": 10,\n      \"title\": \"vLLM running and waiting requests\"\
+    ,\n      \"type\": \"timeseries\",\n      \"datasource\": {\n        \"type\"\
+    : \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n      \"gridPos\"\
+    : {\n        \"x\": 12,\n        \"y\": 32,\n        \"w\": 12,\n        \"h\"\
+    : 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n          \"\
+    custom\": {\n            \"drawStyle\": \"line\",\n            \"lineInterpolation\"\
+    : \"linear\",\n            \"lineWidth\": 1,\n            \"fillOpacity\": 10,\n\
+    \            \"showPoints\": \"never\",\n            \"spanNulls\": true\n   \
+    \       },\n          \"unit\": \"short\"\n        },\n        \"overrides\":\
+    \ []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"sum(ray_vllm_num_requests_running)\",\n          \"refId\"\
+    : \"A\",\n          \"legendFormat\": \"running\"\n        },\n        {\n   \
+    \       \"expr\": \"sum(ray_vllm_num_requests_waiting)\",\n          \"refId\"\
+    : \"B\",\n          \"legendFormat\": \"waiting\"\n        }\n      ]\n    },\n\
+    \    {\n      \"id\": 11,\n      \"title\": \"vLLM KV-cache usage\",\n      \"\
+    type\": \"timeseries\",\n      \"datasource\": {\n        \"type\": \"prometheus\"\
+    ,\n        \"uid\": \"prometheus\"\n      },\n      \"gridPos\": {\n        \"\
+    x\": 0,\n        \"y\": 40,\n        \"w\": 12,\n        \"h\": 8\n      },\n\
+    \      \"fieldConfig\": {\n        \"defaults\": {\n          \"custom\": {\n\
+    \            \"drawStyle\": \"line\",\n            \"lineInterpolation\": \"linear\"\
+    ,\n            \"lineWidth\": 1,\n            \"fillOpacity\": 10,\n         \
+    \   \"showPoints\": \"never\",\n            \"spanNulls\": true\n          },\n\
+    \          \"unit\": \"percentunit\"\n        },\n        \"overrides\": []\n\
+    \      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"max(ray_vllm_kv_cache_usage_perc)\",\n          \"refId\"\
+    : \"A\",\n          \"legendFormat\": \"KV cache\"\n        }\n      ]\n    },\n\
+    \    {\n      \"id\": 12,\n      \"title\": \"Ray Serve ongoing requests\",\n\
+    \      \"type\": \"timeseries\",\n      \"datasource\": {\n        \"type\": \"\
+    prometheus\",\n        \"uid\": \"prometheus\"\n      },\n      \"gridPos\": {\n\
+    \        \"x\": 12,\n        \"y\": 40,\n        \"w\": 12,\n        \"h\": 8\n\
+    \      },\n      \"fieldConfig\": {\n        \"defaults\": {\n          \"custom\"\
+    : {\n            \"drawStyle\": \"line\",\n            \"lineInterpolation\":\
+    \ \"linear\",\n            \"lineWidth\": 1,\n            \"fillOpacity\": 10,\n\
+    \            \"showPoints\": \"never\",\n            \"spanNulls\": true\n   \
+    \       },\n          \"unit\": \"short\"\n        },\n        \"overrides\":\
+    \ []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"sum(ray_serve_num_ongoing_http_requests)\",\n         \
+    \ \"refId\": \"A\",\n          \"legendFormat\": \"HTTP proxy\"\n        },\n\
+    \        {\n          \"expr\": \"sum(ray_serve_num_ongoing_requests_at_replicas)\"\
+    ,\n          \"refId\": \"B\",\n          \"legendFormat\": \"replicas\"\n   \
+    \     },\n        {\n          \"expr\": \"sum(ray_serve_deployment_queued_queries)\"\
+    ,\n          \"refId\": \"C\",\n          \"legendFormat\": \"queued\"\n     \
+    \   }\n      ]\n    },\n    {\n      \"id\": 13,\n      \"title\": \"GPU utilization\"\
+    ,\n      \"type\": \"timeseries\",\n      \"datasource\": {\n        \"type\"\
+    : \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n      \"gridPos\"\
+    : {\n        \"x\": 0,\n        \"y\": 48,\n        \"w\": 12,\n        \"h\"\
+    : 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n          \"\
+    custom\": {\n            \"drawStyle\": \"line\",\n            \"lineInterpolation\"\
+    : \"linear\",\n            \"lineWidth\": 1,\n            \"fillOpacity\": 10,\n\
+    \            \"showPoints\": \"never\",\n            \"spanNulls\": true\n   \
+    \       },\n          \"unit\": \"percent\"\n        },\n        \"overrides\"\
+    : []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"max(ray_node_gpus_utilization{RayNodeType=\\\"worker\\\"\
+    })\",\n          \"refId\": \"A\",\n          \"legendFormat\": \"A100 GPU\"\n\
+    \        }\n      ]\n    },\n    {\n      \"id\": 14,\n      \"title\": \"GPU\
+    \ memory used\",\n      \"type\": \"timeseries\",\n      \"datasource\": {\n \
+    \       \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n\
+    \      \"gridPos\": {\n        \"x\": 12,\n        \"y\": 48,\n        \"w\":\
+    \ 12,\n        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\"\
+    : {\n          \"custom\": {\n            \"drawStyle\": \"line\",\n         \
+    \   \"lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n      \
+    \      \"fillOpacity\": 10,\n            \"showPoints\": \"never\",\n        \
+    \    \"spanNulls\": true\n          },\n          \"unit\": \"mbytes\"\n     \
+    \   },\n        \"overrides\": []\n      },\n      \"options\": {\n        \"\
+    legend\": {\n          \"displayMode\": \"list\",\n          \"placement\": \"\
+    bottom\",\n          \"showLegend\": true\n        },\n        \"tooltip\": {\n\
+    \          \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n   \
+    \   },\n      \"targets\": [\n        {\n          \"expr\": \"max(ray_node_gram_used{RayNodeType=\\\
+    \"worker\\\"})\",\n          \"refId\": \"A\",\n          \"legendFormat\": \"\
+    A100 memory\"\n        }\n      ]\n    },\n    {\n      \"id\": 15,\n      \"\
+    title\": \"Guard decisions\",\n      \"type\": \"timeseries\",\n      \"datasource\"\
+    : {\n        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n    \
+    \  },\n      \"gridPos\": {\n        \"x\": 0,\n        \"y\": 56,\n        \"\
+    w\": 12,\n        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\"\
+    : {\n          \"custom\": {\n            \"drawStyle\": \"line\",\n         \
+    \   \"lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n      \
+    \      \"fillOpacity\": 10,\n            \"showPoints\": \"never\",\n        \
+    \    \"spanNulls\": true\n          },\n          \"unit\": \"reqps\"\n      \
+    \  },\n        \"overrides\": []\n      },\n      \"options\": {\n        \"legend\"\
+    : {\n          \"displayMode\": \"list\",\n          \"placement\": \"bottom\"\
+    ,\n          \"showLegend\": true\n        },\n        \"tooltip\": {\n      \
+    \    \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n      },\n\
+    \      \"targets\": [\n        {\n          \"expr\": \"sum by (decision,reason)\
+    \ (rate(orch_guard_decisions_total[5m]))\",\n          \"refId\": \"A\",\n   \
+    \       \"legendFormat\": \"{{decision}} {{reason}}\"\n        }\n      ]\n  \
+    \  },\n    {\n      \"id\": 16,\n      \"title\": \"Admission decisions\",\n \
+    \     \"type\": \"timeseries\",\n      \"datasource\": {\n        \"type\": \"\
+    prometheus\",\n        \"uid\": \"prometheus\"\n      },\n      \"gridPos\": {\n\
+    \        \"x\": 12,\n        \"y\": 56,\n        \"w\": 12,\n        \"h\": 8\n\
+    \      },\n      \"fieldConfig\": {\n        \"defaults\": {\n          \"custom\"\
+    : {\n            \"drawStyle\": \"line\",\n            \"lineInterpolation\":\
+    \ \"linear\",\n            \"lineWidth\": 1,\n            \"fillOpacity\": 10,\n\
+    \            \"showPoints\": \"never\",\n            \"spanNulls\": true\n   \
+    \       },\n          \"unit\": \"reqps\"\n        },\n        \"overrides\":\
+    \ []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"sum by (decision,reason) (rate(orch_admission_decisions_total[5m]))\"\
+    ,\n          \"refId\": \"A\",\n          \"legendFormat\": \"{{decision}} {{reason}}\"\
+    \n        }\n      ]\n    },\n    {\n      \"id\": 17,\n      \"title\": \"Worker\
+    \ placement\",\n      \"type\": \"timeseries\",\n      \"datasource\": {\n   \
+    \     \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n \
+    \     \"gridPos\": {\n        \"x\": 0,\n        \"y\": 64,\n        \"w\": 12,\n\
+    \        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n\
+    \          \"custom\": {\n            \"drawStyle\": \"line\",\n            \"\
+    lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n            \"\
+    fillOpacity\": 10,\n            \"showPoints\": \"never\",\n            \"spanNulls\"\
+    : true\n          },\n          \"unit\": \"reqps\"\n        },\n        \"overrides\"\
+    : []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"sum by (worker,reason) (rate(orch_placement_total[5m]))\"\
+    ,\n          \"refId\": \"A\",\n          \"legendFormat\": \"{{worker}} {{reason}}\"\
+    \n        }\n      ]\n    },\n    {\n      \"id\": 18,\n      \"title\": \"Gateway\
+    \ queue depth by worker\",\n      \"type\": \"timeseries\",\n      \"datasource\"\
+    : {\n        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n    \
+    \  },\n      \"gridPos\": {\n        \"x\": 12,\n        \"y\": 64,\n        \"\
+    w\": 12,\n        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\"\
+    : {\n          \"custom\": {\n            \"drawStyle\": \"line\",\n         \
+    \   \"lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n      \
+    \      \"fillOpacity\": 10,\n            \"showPoints\": \"never\",\n        \
+    \    \"spanNulls\": true\n          },\n          \"unit\": \"short\"\n      \
+    \  },\n        \"overrides\": []\n      },\n      \"options\": {\n        \"legend\"\
+    : {\n          \"displayMode\": \"list\",\n          \"placement\": \"bottom\"\
+    ,\n          \"showLegend\": true\n        },\n        \"tooltip\": {\n      \
+    \    \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n      },\n\
+    \      \"targets\": [\n        {\n          \"expr\": \"orch_replica_queue_depth\"\
+    ,\n          \"refId\": \"A\",\n          \"legendFormat\": \"{{worker}} {{priority}}\"\
+    \n        }\n      ]\n    },\n    {\n      \"id\": 19,\n      \"title\": \"Prefix\
+    \ hop outcomes\",\n      \"type\": \"timeseries\",\n      \"datasource\": {\n\
+    \        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n\
+    \      \"gridPos\": {\n        \"x\": 0,\n        \"y\": 72,\n        \"w\": 12,\n\
+    \        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\": {\n\
+    \          \"custom\": {\n            \"drawStyle\": \"line\",\n            \"\
+    lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n            \"\
+    fillOpacity\": 10,\n            \"showPoints\": \"never\",\n            \"spanNulls\"\
+    : true\n          },\n          \"unit\": \"reqps\"\n        },\n        \"overrides\"\
+    : []\n      },\n      \"options\": {\n        \"legend\": {\n          \"displayMode\"\
+    : \"list\",\n          \"placement\": \"bottom\",\n          \"showLegend\": true\n\
+    \        },\n        \"tooltip\": {\n          \"mode\": \"multi\",\n        \
+    \  \"sort\": \"desc\"\n        }\n      },\n      \"targets\": [\n        {\n\
+    \          \"expr\": \"sum by (source,target,outcome) (rate(orch_hop_total[5m]))\"\
+    ,\n          \"refId\": \"A\",\n          \"legendFormat\": \"{{source}}\\u2192{{target}}\
+    \ {{outcome}}\"\n        }\n      ]\n    },\n    {\n      \"id\": 20,\n      \"\
+    title\": \"Overflow stay/leave decisions\",\n      \"type\": \"timeseries\",\n\
+    \      \"datasource\": {\n        \"type\": \"prometheus\",\n        \"uid\":\
+    \ \"prometheus\"\n      },\n      \"gridPos\": {\n        \"x\": 12,\n       \
+    \ \"y\": 72,\n        \"w\": 12,\n        \"h\": 8\n      },\n      \"fieldConfig\"\
+    : {\n        \"defaults\": {\n          \"custom\": {\n            \"drawStyle\"\
+    : \"line\",\n            \"lineInterpolation\": \"linear\",\n            \"lineWidth\"\
+    : 1,\n            \"fillOpacity\": 10,\n            \"showPoints\": \"never\"\
+    ,\n            \"spanNulls\": true\n          },\n          \"unit\": \"reqps\"\
+    \n        },\n        \"overrides\": []\n      },\n      \"options\": {\n    \
+    \    \"legend\": {\n          \"displayMode\": \"list\",\n          \"placement\"\
+    : \"bottom\",\n          \"showLegend\": true\n        },\n        \"tooltip\"\
+    : {\n          \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n\
+    \      },\n      \"targets\": [\n        {\n          \"expr\": \"sum by (decision,reason)\
+    \ (rate(orch_overflow_total[5m]))\",\n          \"refId\": \"A\",\n          \"\
+    legendFormat\": \"{{decision}} {{reason}}\"\n        }\n      ]\n    },\n    {\n\
+    \      \"id\": 21,\n      \"title\": \"Worker health\",\n      \"type\": \"timeseries\"\
+    ,\n      \"datasource\": {\n        \"type\": \"prometheus\",\n        \"uid\"\
+    : \"prometheus\"\n      },\n      \"gridPos\": {\n        \"x\": 0,\n        \"\
+    y\": 80,\n        \"w\": 12,\n        \"h\": 8\n      },\n      \"fieldConfig\"\
+    : {\n        \"defaults\": {\n          \"custom\": {\n            \"drawStyle\"\
+    : \"line\",\n            \"lineInterpolation\": \"linear\",\n            \"lineWidth\"\
+    : 1,\n            \"fillOpacity\": 10,\n            \"showPoints\": \"never\"\
+    ,\n            \"spanNulls\": true\n          },\n          \"unit\": \"short\"\
+    \n        },\n        \"overrides\": []\n      },\n      \"options\": {\n    \
+    \    \"legend\": {\n          \"displayMode\": \"list\",\n          \"placement\"\
+    : \"bottom\",\n          \"showLegend\": true\n        },\n        \"tooltip\"\
+    : {\n          \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n\
+    \      },\n      \"targets\": [\n        {\n          \"expr\": \"orch_worker_health\"\
+    ,\n          \"refId\": \"A\",\n          \"legendFormat\": \"{{worker}}\"\n \
+    \       }\n      ]\n    },\n    {\n      \"id\": 22,\n      \"title\": \"Gateway\
+    \ queue wait p95\",\n      \"type\": \"timeseries\",\n      \"datasource\": {\n\
+    \        \"type\": \"prometheus\",\n        \"uid\": \"prometheus\"\n      },\n\
+    \      \"gridPos\": {\n        \"x\": 12,\n        \"y\": 80,\n        \"w\":\
+    \ 12,\n        \"h\": 8\n      },\n      \"fieldConfig\": {\n        \"defaults\"\
+    : {\n          \"custom\": {\n            \"drawStyle\": \"line\",\n         \
+    \   \"lineInterpolation\": \"linear\",\n            \"lineWidth\": 1,\n      \
+    \      \"fillOpacity\": 10,\n            \"showPoints\": \"never\",\n        \
+    \    \"spanNulls\": true\n          },\n          \"unit\": \"s\"\n        },\n\
+    \        \"overrides\": []\n      },\n      \"options\": {\n        \"legend\"\
+    : {\n          \"displayMode\": \"list\",\n          \"placement\": \"bottom\"\
+    ,\n          \"showLegend\": true\n        },\n        \"tooltip\": {\n      \
+    \    \"mode\": \"multi\",\n          \"sort\": \"desc\"\n        }\n      },\n\
+    \      \"targets\": [\n        {\n          \"expr\": \"histogram_quantile(0.95,\
+    \ sum by (le,worker,priority) (rate(orch_queue_wait_seconds_bucket[5m])))\",\n\
+    \          \"refId\": \"A\",\n          \"legendFormat\": \"{{worker}} {{priority}}\"\
+    \n        }\n      ]\n    }\n  ]\n}"

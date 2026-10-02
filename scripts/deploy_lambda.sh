@@ -12,6 +12,10 @@ Options:
   --api-key <value>   Existing GraphServe API key; generated when omitted
   --storage-root <path>
                       Attached Lambda filesystem path (default: auto-detect /lambda/nfs/*)
+  --sie-base-url <url>
+                      Hosted SIE/Superlinked API origin; also SIE_BASE_URL
+  --sie-model <name>  Embedding model; also SIE_MODEL
+  --sie-api-key <key> Hosted API key; prefer the SIE_API_KEY environment variable
   --skip-monitoring   Skip Prometheus and Grafana installation
   --help              Show this message
 
@@ -27,6 +31,9 @@ remote_dir=""
 api_key="${AGENT_API_KEY:-}"
 skip_monitoring="false"
 storage_root="auto"
+sie_base_url="${SIE_BASE_URL:-}"
+sie_model="${SIE_MODEL:-sentence-transformers/all-MiniLM-L6-v2}"
+sie_api_key="${SIE_API_KEY:-}"
 
 while (($#)); do
   case "$1" in
@@ -36,6 +43,9 @@ while (($#)); do
     --remote-dir) remote_dir="${2:?--remote-dir needs a value}"; shift 2 ;;
     --api-key) api_key="${2:?--api-key needs a value}"; shift 2 ;;
     --storage-root) storage_root="${2:?--storage-root needs a value}"; shift 2 ;;
+    --sie-base-url) sie_base_url="${2:?--sie-base-url needs a value}"; shift 2 ;;
+    --sie-model) sie_model="${2:?--sie-model needs a value}"; shift 2 ;;
+    --sie-api-key) sie_api_key="${2:?--sie-api-key needs a value}"; shift 2 ;;
     --skip-monitoring) skip_monitoring="true"; shift ;;
     --help|-h) usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage >&2; exit 2 ;;
@@ -51,6 +61,10 @@ project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 remote_dir="${remote_dir:-/home/${ssh_user}/GraphServe}"
 [[ "$remote_dir" =~ ^/[A-Za-z0-9._/-]+$ && "$remote_dir" != *".."* ]] || { echo "Remote directory must be an absolute path using letters, numbers, dots, underscores, dashes and slashes" >&2; exit 2; }
 [[ "$storage_root" == "auto" || ( "$storage_root" =~ ^/lambda/nfs/[A-Za-z0-9._/-]+$ && "$storage_root" != *".."* ) ]] || { echo "Storage root must be auto or an absolute path below /lambda/nfs" >&2; exit 2; }
+[[ -z "$sie_base_url" || "$sie_base_url" =~ ^https?://[^[:space:]]+$ ]] || { echo "SIE base URL must be an HTTP(S) URL" >&2; exit 2; }
+[[ "$sie_model" =~ ^[A-Za-z0-9._/-]+$ ]] || { echo "Invalid SIE model name" >&2; exit 2; }
+[[ "$sie_api_key" != *$'\n'* && "$sie_api_key" != *$'\r'* ]] || { echo "SIE API key must be one line" >&2; exit 2; }
+[[ -z "$sie_api_key" || -n "$sie_base_url" ]] || { echo "SIE_BASE_URL is required when SIE_API_KEY is set" >&2; exit 2; }
 
 for command_name in ssh rsync openssl; do
   command -v "$command_name" >/dev/null || { echo "Missing local command: $command_name" >&2; exit 2; }
@@ -103,7 +117,9 @@ rsync -az \
   "$project_root/" "$target:$remote_dir/"
 
 echo "Bootstrapping and deploying on the VM; image and model downloads can take 20-60 minutes"
-printf '%s\n%s\n%s\n' "$api_key" "$skip_monitoring" "$storage_root" | \
+printf '%s\n%s\n%s\n%s\n%s\n%s\n' \
+  "$api_key" "$skip_monitoring" "$storage_root" \
+  "$sie_base_url" "$sie_model" "$sie_api_key" | \
   ssh "${ssh_options[@]}" "$target" "cd '$remote_dir' && bash scripts/bootstrap_lambda_remote.sh"
 
 cat <<EOF

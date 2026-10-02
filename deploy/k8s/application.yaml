@@ -47,9 +47,23 @@ spec:
         - name: INFERENCE_BASE_URL
           value: http://nginx:8081
         - name: SIE_BASE_URL
-          value: http://sie:8080
+          valueFrom:
+            secretKeyRef:
+              name: embedding-provider
+              key: base-url
+              optional: true
         - name: SIE_MODEL
-          value: sentence-transformers/all-MiniLM-L6-v2
+          valueFrom:
+            secretKeyRef:
+              name: embedding-provider
+              key: model
+              optional: true
+        - name: SIE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: embedding-provider
+              key: api-key
+              optional: true
         - name: AGENT_API_KEY
           valueFrom:
             secretKeyRef:
@@ -127,6 +141,10 @@ spec:
         env:
         - name: RAY_BASE_URL
           value: http://repo-llm-serve-svc:8000
+        envFrom:
+        - configMapRef:
+            name: gateway-orchestrator
+            optional: true
 ---
 apiVersion: v1
 kind: Service

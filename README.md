@@ -1,8 +1,8 @@
 # GraphServe repository understanding agent
 
 GraphServe accepts a public GitHub repository URL and a full commit SHA, builds
-a Graphify code graph, retrieves and optionally SIE-reranks related source, and
-returns explanations and change proposals with commit-pinned citations. It does
+a Graphify code graph, retrieves and optionally reranks related source through a
+hosted Superlinked/SIE endpoint, and returns explanations and change proposals with commit-pinned citations. It does
 not execute repository code or apply proposed changes.
 
 ## Local development
@@ -30,20 +30,24 @@ flowchart LR
     U[User] --> N[nginx]
     N --> A[Python agent]
     A --> G[Graphify and Git blobs]
-    A --> S[SIE embeddings]
-    A --> W[Inference gateway]
-    W --> R[Ray Serve router]
-    R --> V1[vLLM replica A]
-    R --> V2[vLLM replica B]
+    A --> S[Hosted Superlinked/SIE embeddings]
+    A --> W[Guard / admit / place]
+    W --> Q1[Bounded queue A]
+    W --> Q2[Bounded queue B]
+    Q1 --> V1[Ray Serve A / vLLM]
+    Q2 --> V2[Ray Serve B / vLLM]
     A --> P[Prometheus]
     W --> P
-    R --> P
+    V1 --> P
+    V2 --> P
     P --> F[Grafana]
 ```
 
 The measured deployment uses one K3s control node and two A100 worker nodes,
-with one whole-GPU Qwen2.5-Coder-7B-Instruct BF16 replica per worker. Source IDs,
-blob contents and line ranges are verified; semantic entailment is not yet
+with one whole-GPU Qwen2.5-Coder-7B-Instruct BF16 replica per worker. The
+default deployment uses a hosted embeddings endpoint when `SIE_BASE_URL` and
+`SIE_API_KEY` are set; `compose.sie.yaml` and `deploy/k8s/sie.yaml` remain
+optional self-hosted profiles. Source IDs, blob contents and line ranges are verified; semantic entailment is not yet
 automatically scored.
 
 ## Measured serving profiles
@@ -70,5 +74,6 @@ kubectl kustomize deploy/k8s > /tmp/repo-agent-rendered.yaml
 - `submission.ipynb`: reproducible evidence analysis.
 
 Current limitations include public repositories only, synchronous bounded-time
-ingestion, no multi-tenant admission control, no explicit per-worker gateway
-queue, non-streaming answers, and no semantic answer-quality score.
+ingestion, non-streaming answers, no cross-node KV transfer, and no semantic
+answer-quality score. The final orchestrated profiles require new measurements;
+the committed A/B results predate explicit per-worker placement and queues.

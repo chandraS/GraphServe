@@ -5,12 +5,17 @@ import os
 import httpx
 
 
+def embeddings_url(base_url):
+    base = base_url.rstrip("/")
+    return base + ("/embeddings" if base.endswith("/v1") else "/v1/embeddings")
+
+
 async def rerank(question, evidence):
     api_key = os.getenv("SIE_API_KEY")
     headers = {"Authorization": "Bearer " + api_key} if api_key else {}
     async with httpx.AsyncClient(timeout=90) as client:
         for attempt in range(5):
-            response = await client.post(os.environ["SIE_BASE_URL"].rstrip("/") + "/v1/embeddings",
+            response = await client.post(embeddings_url(os.environ["SIE_BASE_URL"]),
                 headers=headers,
                 json={"model": os.getenv("SIE_MODEL", "sentence-transformers/all-MiniLM-L6-v2"),
                       "input": [question] + [e["text"] for e in evidence]})

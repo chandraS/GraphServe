@@ -9,8 +9,9 @@ immutable Git blob.
 
 ```text
 browser/API -> agent retrieval -> SIE -> context assembly
-            -> nginx -> inference gateway -> Ray Serve router
-            -> one of two vLLM replicas -> source verification
+            -> nginx -> guard -> admission -> explicit placement
+            -> bounded worker queue -> stable Ray Serve/vLLM target
+            -> source verification
 ```
 
 The inference gateway and engines are separate deployments. vLLM retains
@@ -60,13 +61,20 @@ Because B changed both vLLM caching and routing, the result does not identify a
 single cause. A clean follow-up enables automatic prefix caching while retaining
 default routing, with prefix affinity as an optional third profile.
 
-## Current control boundary
+## Gateway control boundary
 
-The gateway validates request size, model, streaming flag and output budget,
-then admits at most four concurrent calls through a semaphore. Ray owns replica
-selection. The next control-plane increment is an explicit guard/admit/place/
-queue decision with typed rejection reasons, worker identity, prefix affinity,
-and queue metrics. It must not reproduce the vLLM scheduler.
+The gateway has a named guard for request shape and token bounds. Admission uses
+a per-tenant one-minute token window, deadline/queue estimates, worker health,
+and per-worker vLLM KV telemetry. Placement uses prefix affinity while queue
+depth, in-flight work, engine waiting requests, and KV occupancy remain scoring
+inputs. Each stable worker endpoint has a bounded priority queue; interactive
+traffic precedes batch traffic. A request is never bounced after placement.
+
+The affinity table is bounded and expires entries. Staying on the mapped worker
+is recorded as `same_worker`; moving elsewhere is `cold_recompute`. No KV tensor
+transfer is claimed. Engine 503/529 responses follow the declared `stay` policy,
+while 429 remains local. vLLM retains scheduling, continuous batching, KV block
+allocation, waiting and preemption.
 
 ## Scope decisions
 

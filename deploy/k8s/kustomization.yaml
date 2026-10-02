@@ -4,7 +4,6 @@ namespace: repo-agent
 resources:
   - storage.yaml
   - application.yaml
-  - sie.yaml
   - rayservice.yaml
   - monitoring.yaml
 configMapGenerator:

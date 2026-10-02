@@ -107,6 +107,7 @@ async def questions(body: Question):
         inference_usage = None
         inference_usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
         inference_attempts = 0
+        serving = None
         answer_verified = False
         if not evidence:
             answer = {"claims": [], "proposal": [], "limitations": ["No usable source evidence found."]}
@@ -120,10 +121,32 @@ async def questions(body: Question):
                 for attempt in range(2):
                     response = await client.post(
                         os.getenv("INFERENCE_BASE_URL", "http://gateway:8080") + "/v1/chat/completions",
+                        headers={
+                            "X-GraphServe-Tenant": body.repository_id,
+                            "X-GraphServe-Prefix-Key": body.repository_id + ":" + (scope or "root"),
+                            "X-GraphServe-Priority": "interactive",
+                            "X-GraphServe-Timeout-Ms": "115000",
+                        },
                         json={"model": "qwen-coder", "messages": request_messages, "temperature": 0,
-                              "max_tokens": 1024, "response_format": {"type": "json_object"}},
+                              "max_tokens": 1024, "response_format": {"type": "json_object"},
+                              "user": body.repository_id},
                     )
-                    response.raise_for_status()
+                    serving = {
+                        "request_id": response.headers.get("x-graphserve-request-id"),
+                        "worker": response.headers.get("x-graphserve-worker"),
+                        "placement": response.headers.get("x-graphserve-placement"),
+                        "hop": response.headers.get("x-graphserve-hop"),
+                        "queue_wait_ms": response.headers.get("x-graphserve-queue-wait-ms"),
+                    }
+                    if response.status_code >= 400:
+                        try:
+                            upstream_detail = response.json().get("detail", "Inference rejected")
+                        except ValueError:
+                            upstream_detail = "Inference rejected"
+                        headers = {}
+                        if response.headers.get("retry-after"):
+                            headers["Retry-After"] = response.headers["retry-after"]
+                        raise HTTPException(response.status_code, upstream_detail, headers=headers)
                     inference_response = response.json()
                     inference_attempts += 1
                     inference_usage = inference_response.get("usage") or {}
@@ -158,7 +181,7 @@ async def questions(body: Question):
         return {"answer": answer, "sources": evidence, "prompt_tokens": count,
                 "inference_usage": inference_usage,
                 "inference_usage_total": inference_usage_total if inference_attempts else None,
-                "inference_attempts": inference_attempts, "scope": scope,
+                "inference_attempts": inference_attempts, "scope": scope, "serving": serving,
                 "mode": "mock" if MOCK else "real",
                 "verification": "Source IDs, blob contents and line ranges verified; semantic entailment is not guaranteed."}
     except (ValueError, KeyError, TypeError, subprocess.SubprocessError, httpx.HTTPError) as exc:

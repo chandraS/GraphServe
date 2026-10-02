@@ -21,8 +21,23 @@ certificates and identity are rebuilt; persistent application data is reattached
 
 The script reuses compatible existing Docker/containerd packages, installs K3s,
 the NVIDIA runtime/device plugin, KubeRay and monitoring, builds the application
-image, deploys GraphServe and SIE, and saves the generated agent key in the
-ignored local file `artifacts/lambda-deployment.env`.
+image, deploys GraphServe, and saves the generated agent key in the ignored
+local file `artifacts/lambda-deployment.env`.
+
+For hosted Superlinked/SIE embeddings, obtain the API base URL and model name
+from the provider dashboard, then keep the key in the shell environment:
+
+```bash
+export SIE_BASE_URL="https://YOUR_HOSTED_ENDPOINT"
+export SIE_API_KEY="YOUR_KEY"
+export SIE_MODEL="sentence-transformers/all-MiniLM-L6-v2"
+./scripts/deploy_lambda.sh --host CONTROL_PUBLIC_IP
+unset SIE_API_KEY
+```
+
+The script creates a Kubernetes Secret and does not deploy the in-cluster SIE
+pod. Without `SIE_BASE_URL`, the agent uses lexical and Graphify retrieval.
+`deploy/k8s/sie.yaml` remains an explicit self-hosted alternative.
 
 ## Join two GPU workers
 
@@ -37,17 +52,24 @@ The join script installs the K3s agent and NVIDIA runtime integration without
 replacing K3s containerd. It labels the control and worker roles and waits for
 Kubernetes to advertise one GPU on each worker.
 
-## Deploy a measured profile
+## Deploy the explicit orchestration profile
+
+After both workers join, deploy the stable one-engine-per-worker topology and
+the guard/admit/place/queue gateway:
 
 ```bash
-kubectl -n repo-agent apply -f deploy/k8s/rayservice-multinode-baseline.yaml
-kubectl -n repo-agent wait --for=condition=Ready rayservice/repo-llm --timeout=60m
+./scripts/deploy_orchestrated.sh \
+  --host CONTROL_PUBLIC_IP \
+  --profile baseline \
+  --replace-running-service
 ```
 
-The prefix-aware alternative is
-`deploy/k8s/rayservice-prefix-aware.yaml`. With only two GPUs, stop the current
-RayService before switching profiles because old and new clusters cannot coexist
-during KubeRay's replacement rollout.
+`baseline` disables vLLM automatic prefix caching. `prefix-cache` changes only
+that engine flag; gateway placement and queue policy remain identical, allowing
+a single-variable comparison. The script builds the agent/gateway image, labels
+the workers `a` and `b`, replaces the shared RayService with `repo-llm-a` and
+`repo-llm-b`, and restarts the agent and gateway. With two GPUs, profile changes
+are stop/start operations.
 
 Validate placement and health:
 

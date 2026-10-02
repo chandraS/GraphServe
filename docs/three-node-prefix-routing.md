@@ -31,20 +31,24 @@ sudo k3s kubectl get nodes -L graphserve.io/role,nvidia.com/gpu.present -o wide
 sudo k3s kubectl get pods -n repo-agent -o wide
 ```
 
-Expected placement is Ray head, agent, gateway, nginx and SIE on the control
-node, with one Ray/vLLM worker pod on each GPU node.
+Expected placement is the agent, gateway, nginx and two Ray heads on the
+control node, with one single-replica Ray/vLLM service on each labeled GPU node.
+Hosted SIE runs outside the cluster.
 
 ## Serving profiles
 
-- `deploy/k8s/rayservice-multinode-baseline.yaml`: two replicas, automatic
-  prefix caching disabled, default Ray routing.
-- `deploy/k8s/rayservice-prefix-aware.yaml`: two replicas, automatic prefix
-  caching enabled, `PrefixCacheAffinityRouter`.
+Deploy either final profile through `scripts/deploy_orchestrated.sh`:
 
-Only two GPUs are available, so changing profiles is a deliberate stop/start
-operation: a zero-downtime replacement would temporarily require four GPUs.
-Always save the live manifest and environment before switching.
+- `baseline`: two stable single-replica RayServices with automatic prefix
+  caching disabled.
+- `prefix-cache`: the same topology and gateway policy with automatic prefix
+  caching enabled.
 
-The measured prefix-aware profile performed acceptably at concurrency 1 and 2
-but timed out four calls at concurrency 4. The baseline is therefore the
-recommended active profile until the regression is isolated.
+The gateway chooses worker `a` or `b`, enqueues the request once, and exposes the
+worker, placement reason, queue wait and hop outcome as response headers and
+Prometheus metrics. Same-worker affinity is a warm candidate; changing workers
+is recorded as cold recomputation. No KV tensors move between nodes.
+
+The older shared-RayService manifests and measurements remain as historical
+baseline evidence. Final results must be remeasured through the explicit
+orchestration path.

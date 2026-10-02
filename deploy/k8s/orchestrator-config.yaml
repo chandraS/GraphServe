@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-orchestrator
+  namespace: repo-agent
+data:
+  WORKER_ENDPOINTS: a=http://repo-llm-a-serve-svc:8000,b=http://repo-llm-b-serve-svc:8000
+  PROMETHEUS_URL: http://monitoring-kube-prometheus-prometheus.monitoring.svc:9090
+  ORCH_QUEUE_CAPACITY: "8"
+  ORCH_DISPATCH_CONCURRENCY: "4"
+  ORCH_TENANT_TOKENS_PER_MIN: "50000"
+  ORCH_AFFINITY_TTL_SECONDS: "900"
+  ORCH_AFFINITY_MAX_ENTRIES: "10000"
+  ORCH_AFFINITY_IMBALANCE: "2"
+  ORCH_KV_SHED_THRESHOLD: "0.95"
+  ORCH_REQUEST_TIMEOUT_SECONDS: "120"

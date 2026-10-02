@@ -13,9 +13,15 @@ trap 'echo "Deployment failed at line $LINENO" >&2' ERR
 IFS= read -r agent_api_key
 IFS= read -r skip_monitoring
 IFS= read -r requested_storage_root
+IFS= read -r sie_base_url || sie_base_url=""
+IFS= read -r sie_model || sie_model="sentence-transformers/all-MiniLM-L6-v2"
+IFS= read -r sie_api_key || sie_api_key=""
 [[ -n "$agent_api_key" ]] || fail "API key was not supplied by the local deploy script"
 [[ "$skip_monitoring" == "true" || "$skip_monitoring" == "false" ]] || fail "Invalid monitoring setting"
 [[ -n "$requested_storage_root" ]] || requested_storage_root="auto"
+[[ -z "$sie_base_url" || "$sie_base_url" =~ ^https?://[^[:space:]]+$ ]] || fail "Invalid SIE base URL"
+[[ "$sie_model" =~ ^[A-Za-z0-9._/-]+$ ]] || fail "Invalid SIE model name"
+[[ -z "$sie_api_key" || -n "$sie_base_url" ]] || fail "SIE base URL is required with an API key"
 [[ "$(uname -s)" == "Linux" ]] || fail "This script must run on the Lambda Linux VM"
 command -v nvidia-smi >/dev/null || fail "nvidia-smi is unavailable; select a Lambda GPU image"
 
@@ -103,7 +109,22 @@ sudo chown "$(id -u):$(id -g)" "$HOME/.kube/config"
 chmod 600 "$HOME/.kube/config"
 export KUBECONFIG="$HOME/.kube/config"
 kctl() { k3s kubectl "$@"; }
-kctl wait --for=condition=Ready node --all --timeout=5m
+
+# The k3s systemd unit can become active before the server has registered its
+# first Node object. `kubectl wait node --all` fails immediately when the list is
+# still empty, so wait for the object explicitly before waiting on Ready.
+node_name=""
+for _ in $(seq 1 60); do
+  node_name="$(kctl get nodes -o jsonpath='{.items[0].metadata.name}' 2>/dev/null || true)"
+  [[ -n "$node_name" ]] && break
+  sleep 2
+done
+[[ -n "$node_name" ]] || fail "K3s API did not register a node within 2 minutes"
+kctl wait --for=condition=Ready "node/$node_name" --timeout=5m
+# Application and Ray head pods are pinned to the control node. Label it during
+# initial bootstrap so the single-node deployment can become Ready before GPU
+# workers are joined later.
+kctl label node "$node_name" graphserve.io/role=control --overwrite
 sudo grep -q nvidia /var/lib/rancher/k3s/agent/etc/containerd/config.toml \
   || fail "K3s did not detect the NVIDIA runtime"
 
@@ -226,12 +247,36 @@ data:
   api-key: ${encoded_api_key}
 EOF
 
+# Hosted embedding credentials never enter the repository or a ConfigMap.
+if [[ -n "$sie_base_url" ]]; then
+  encoded_sie_base_url="$(printf '%s' "$sie_base_url" | base64 | tr -d '\n')"
+  encoded_sie_model="$(printf '%s' "$sie_model" | base64 | tr -d '\n')"
+  encoded_sie_api_key="$(printf '%s' "$sie_api_key" | base64 | tr -d '\n')"
+  cat <<EOF | kctl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: embedding-provider
+  namespace: repo-agent
+type: Opaque
+data:
+  base-url: ${encoded_sie_base_url}
+  model: ${encoded_sie_model}
+  api-key: ${encoded_sie_api_key}
+EOF
+else
+  kctl -n repo-agent delete secret embedding-provider --ignore-not-found
+fi
+# The default profile uses a hosted endpoint or lexical retrieval. Self-hosted
+# SIE remains available as an explicit deploy/k8s/sie.yaml profile.
+kctl -n repo-agent delete deployment sie --ignore-not-found
+kctl -n repo-agent delete service sie --ignore-not-found
+
 if [[ "$skip_monitoring" == "true" ]]; then
   kctl create configmap nginx-config --from-file=nginx.conf=deploy/k8s/nginx.conf \
     --namespace repo-agent --dry-run=client -o yaml | kctl apply -f -
   kctl apply -f deploy/k8s/storage.yaml
   kctl -n repo-agent apply -f deploy/k8s/application.yaml
-  kctl -n repo-agent apply -f deploy/k8s/sie.yaml
   kctl -n repo-agent apply -f deploy/k8s/rayservice.yaml
 else
   kctl apply -k deploy/k8s
@@ -241,7 +286,6 @@ fi
 kctl -n repo-agent rollout restart deployment/agent
 
 echo "== Wait for services =="
-kctl -n repo-agent rollout status deployment/sie --timeout=15m
 kctl -n repo-agent wait --for=condition=Ready rayservice/repo-llm --timeout=60m
 kctl -n repo-agent rollout status deployment/agent --timeout=10m
 kctl -n repo-agent rollout status deployment/gateway --timeout=10m
