@@ -65,3 +65,30 @@ latency.
 3. Add mixed tenant/priority and overload phases.
 4. Record worker identity, route reason and queue depth per request.
 5. Add streaming first-token timestamps and held-out answer/citation scoring.
+
+## Gateway behavior tests
+
+Run the safe live policy suite against an orchestrated cluster:
+
+```bash
+make orchestration-smoke CONTROL_HOST=CONTROL_PUBLIC_IP
+```
+
+The script opens a temporary SSH tunnel directly to the internal gateway and
+records its report under `artifacts/orchestration-smoke.json`. It verifies:
+
+- named guard rejection for invalid JSON, model, streaming, context budget and
+  priority;
+- two healthy stable workers;
+- cold placement followed by same-worker prefix affinity;
+- unique-prefix placement across both workers;
+- acceptance of the batch priority class; and
+- guard, admission, placement, queue, hop, overflow and health metrics.
+
+This smoke suite is intentionally low load. Queue saturation, priority ordering,
+tenant-budget rejection and live overflow need controlled overload phases. Run
+them separately from latency measurements so expected 429/503 responses do not
+pollute successful-request percentiles. Deterministic unit tests cover these
+branches in `tests/test_gateway.py`; live overload evidence should additionally
+record response status, rejection reason, `Retry-After`, worker, placement, hop,
+queue wait and the matching Prometheus range.

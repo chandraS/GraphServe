@@ -144,6 +144,15 @@ def run_request(base_url: str, api_key: str, repository_id: str, scope: str | No
             timeout=timeout,
         )
         record["status_code"] = response.status_code
+        record["response_headers"] = {
+            name: response.headers[name]
+            for name in (
+                "retry-after", "x-graphserve-request-id", "x-graphserve-worker",
+                "x-graphserve-placement", "x-graphserve-hop", "x-graphserve-queue-wait-ms",
+                "x-graphserve-rejection-reason", "x-graphserve-overflow-decision",
+            )
+            if name in response.headers
+        }
         try:
             body = response.json()
         except ValueError:
@@ -177,6 +186,11 @@ def summarize(records: list[dict[str, Any]], elapsed: float, concurrency: int) -
     latencies = [float(row["latency_s"]) for row in records if row.get("ok")]
     status_counts: dict[str, int] = {}
     prompt_tokens = completion_tokens = 0
+    serving_counts: dict[str, dict[str, int]] = {
+        "workers": {}, "placements": {}, "hops": {},
+    }
+    queue_wait_ms: list[float] = []
+    retry_after_counts: dict[str, int] = {}
     for row in records:
         key = str(row.get("status_code") or "transport_error")
         status_counts[key] = status_counts.get(key, 0) + 1
@@ -184,6 +198,19 @@ def summarize(records: list[dict[str, Any]], elapsed: float, concurrency: int) -
         usage = response.get("inference_usage_total") or response.get("inference_usage") or {}
         prompt_tokens += int(usage.get("prompt_tokens") or 0)
         completion_tokens += int(usage.get("completion_tokens") or 0)
+        serving = response.get("serving") or {}
+        for source, field in (("workers", "worker"), ("placements", "placement"), ("hops", "hop")):
+            value = serving.get(field)
+            if value:
+                serving_counts[source][str(value)] = serving_counts[source].get(str(value), 0) + 1
+        if serving.get("queue_wait_ms") is not None:
+            try:
+                queue_wait_ms.append(float(serving["queue_wait_ms"]))
+            except (TypeError, ValueError):
+                pass
+        retry_after = (row.get("response_headers") or {}).get("retry-after")
+        if retry_after:
+            retry_after_counts[retry_after] = retry_after_counts.get(retry_after, 0) + 1
     return {
         "concurrency": concurrency,
         "requests": len(records),
@@ -198,6 +225,12 @@ def summarize(records: list[dict[str, Any]], elapsed: float, concurrency: int) -
         "prompt_tokens": prompt_tokens,
         "completion_tokens": completion_tokens,
         "total_tokens_per_s": (prompt_tokens + completion_tokens) / elapsed if elapsed else None,
+        "serving": {
+            **serving_counts,
+            "queue_wait_p50_ms": percentile(queue_wait_ms, 0.50),
+            "queue_wait_p95_ms": percentile(queue_wait_ms, 0.95),
+            "retry_after_counts": retry_after_counts,
+        },
     }
 
 
