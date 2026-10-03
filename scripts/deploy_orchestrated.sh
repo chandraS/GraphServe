@@ -91,6 +91,21 @@ kctl -n repo-agent rollout restart deployment/agent deployment/gateway deploymen
 kctl -n repo-agent rollout status deployment/agent --timeout=10m
 kctl -n repo-agent rollout status deployment/gateway --timeout=10m
 kctl -n repo-agent rollout status deployment/nginx --timeout=10m
+
+# A kubectl service port-forward is bound to the selected pod and exits when an
+# nginx rollout replaces that pod. Recreate it so the outer SSH tunnel continues
+# to have a control-node loopback endpoint.
+if ! pgrep -f 'kubectl.*port-forward.*svc/nginx.*8080:8080' >/dev/null; then
+  nohup sudo k3s kubectl -n repo-agent \
+    port-forward --address 127.0.0.1 svc/nginx 8080:8080 \
+    >/tmp/graphserve-port-forward.log 2>&1 </dev/null &
+fi
+for _ in $(seq 1 20); do
+  curl --fail --silent http://127.0.0.1:8080/healthz >/dev/null && break
+  sleep 1
+done
+curl --fail http://127.0.0.1:8080/healthz
+
 kctl -n repo-agent get rayservice,pods -o wide
 REMOTE
 
