@@ -131,3 +131,36 @@ def test_dispatch_preserves_engine_overflow_metadata(monkeypatch):
         await orchestrator.stop()
 
     asyncio.run(exercise())
+
+
+def test_interactive_priority_runs_before_queued_batch(monkeypatch):
+    monkeypatch.setenv("ORCH_QUEUE_CAPACITY", "2")
+    monkeypatch.setenv("ORCH_DISPATCH_CONCURRENCY", "1")
+    orchestrator = Orchestrator([("a", "http://worker-a")])
+    orchestrator.workers["a"].healthy = True
+    observed = []
+
+    def handler(req: httpx.Request):
+        observed.append(json.loads(req.content)["messages"][1]["content"])
+        return httpx.Response(200, request=req, json={
+            "choices": [{"message": {"content": '{"claims":[]}'}}],
+            "usage": {"prompt_tokens": 10, "completion_tokens": 2, "total_tokens": 12},
+        })
+
+    async def exercise():
+        orchestrator.client = httpx.AsyncClient(transport=httpx.MockTransport(handler))
+        batch = await orchestrator.admit(
+            orchestrator.inspect(payload("batch")),
+            request(prefix="batch", tenant="priority-test", priority="batch"),
+        )
+        interactive = await orchestrator.admit(
+            orchestrator.inspect(payload("interactive")),
+            request(prefix="interactive", tenant="priority-test", priority="interactive"),
+        )
+        worker = orchestrator.workers["a"]
+        worker.consumers.append(asyncio.create_task(orchestrator._consume(worker)))
+        await asyncio.wait_for(asyncio.gather(batch.future, interactive.future), 2)
+        assert observed == ["interactive", "batch"]
+        await orchestrator.stop()
+
+    asyncio.run(exercise())

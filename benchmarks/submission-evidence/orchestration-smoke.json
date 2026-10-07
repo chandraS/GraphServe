@@ -1,0 +1,210 @@
+{
+  "started_at": "2026-10-07T04:49:17.285364+00:00",
+  "control_host": "193.122.152.40",
+  "checks": [
+    {
+      "name": "two healthy stable workers",
+      "passed": true,
+      "observed": {
+        "a": {
+          "healthy": true,
+          "queue_depth": 0,
+          "inflight": 0,
+          "kv_cache_usage": null,
+          "engine_running": 0.0,
+          "engine_waiting": 0.0
+        },
+        "b": {
+          "healthy": true,
+          "queue_depth": 0,
+          "inflight": 0,
+          "kv_cache_usage": 0.0,
+          "engine_running": 0.0,
+          "engine_waiting": 0.0
+        }
+      }
+    },
+    {
+      "name": "invalid JSON",
+      "passed": true,
+      "observed": {
+        "status": 400,
+        "headers": {
+          "x-graphserve-rejection-reason": "invalid_json"
+        }
+      }
+    },
+    {
+      "name": "wrong model",
+      "passed": true,
+      "observed": {
+        "status": 422,
+        "headers": {
+          "x-graphserve-rejection-reason": "model"
+        }
+      }
+    },
+    {
+      "name": "streaming disabled",
+      "passed": true,
+      "observed": {
+        "status": 422,
+        "headers": {
+          "x-graphserve-rejection-reason": "stream"
+        }
+      }
+    },
+    {
+      "name": "context budget",
+      "passed": true,
+      "observed": {
+        "status": 422,
+        "headers": {
+          "x-graphserve-rejection-reason": "context_tokens"
+        }
+      }
+    },
+    {
+      "name": "invalid priority",
+      "passed": true,
+      "observed": {
+        "status": 422,
+        "headers": {
+          "x-graphserve-rejection-reason": "priority"
+        }
+      }
+    },
+    {
+      "name": "affinity requests succeed",
+      "passed": true,
+      "observed": [
+        200,
+        200
+      ]
+    },
+    {
+      "name": "first request is cold",
+      "passed": true,
+      "observed": {
+        "x-graphserve-request-id": "211d4e96b6bc471cbcf427a94b9cc698",
+        "x-graphserve-worker": "a",
+        "x-graphserve-placement": "least_loaded",
+        "x-graphserve-hop": "cold_start",
+        "x-graphserve-queue-wait-ms": "0.17"
+      }
+    },
+    {
+      "name": "repeat stays on worker",
+      "passed": true,
+      "observed": {
+        "x-graphserve-request-id": "59bc128234d1498e8f2eda0aa9e3a16c",
+        "x-graphserve-worker": "a",
+        "x-graphserve-placement": "prefix_affinity",
+        "x-graphserve-hop": "same_worker",
+        "x-graphserve-queue-wait-ms": "0.19"
+      }
+    },
+    {
+      "name": "unique prefixes reach both workers",
+      "passed": true,
+      "observed": [
+        "a",
+        "b"
+      ]
+    },
+    {
+      "name": "batch priority accepted",
+      "passed": true,
+      "observed": {
+        "status": 200,
+        "headers": {
+          "x-graphserve-request-id": "dfa1f3e4bafb4ecd95e0150e3bb65960",
+          "x-graphserve-worker": "b",
+          "x-graphserve-placement": "least_loaded",
+          "x-graphserve-hop": "cold_start",
+          "x-graphserve-queue-wait-ms": "0.14"
+        }
+      }
+    },
+    {
+      "name": "orchestration metrics exposed",
+      "passed": true,
+      "observed": []
+    }
+  ],
+  "affinity": {
+    "first": {
+      "x-graphserve-request-id": "211d4e96b6bc471cbcf427a94b9cc698",
+      "x-graphserve-worker": "a",
+      "x-graphserve-placement": "least_loaded",
+      "x-graphserve-hop": "cold_start",
+      "x-graphserve-queue-wait-ms": "0.17"
+    },
+    "second": {
+      "x-graphserve-request-id": "59bc128234d1498e8f2eda0aa9e3a16c",
+      "x-graphserve-worker": "a",
+      "x-graphserve-placement": "prefix_affinity",
+      "x-graphserve-hop": "same_worker",
+      "x-graphserve-queue-wait-ms": "0.19"
+    }
+  },
+  "distribution": {
+    "workers": [
+      "a",
+      "b"
+    ],
+    "requests": [
+      {
+        "status": 200,
+        "x-graphserve-request-id": "fac9db81a359457fa2e4926466aa8707",
+        "x-graphserve-worker": "a",
+        "x-graphserve-placement": "least_loaded",
+        "x-graphserve-hop": "cold_start",
+        "x-graphserve-queue-wait-ms": "0.2"
+      },
+      {
+        "status": 200,
+        "x-graphserve-request-id": "e3c694c9d39d4653b2bde1c6f24da618",
+        "x-graphserve-worker": "a",
+        "x-graphserve-placement": "least_loaded",
+        "x-graphserve-hop": "cold_start",
+        "x-graphserve-queue-wait-ms": "0.16"
+      },
+      {
+        "status": 200,
+        "x-graphserve-request-id": "b29174ef96be489885ae6dcfc9380de2",
+        "x-graphserve-worker": "b",
+        "x-graphserve-placement": "least_loaded",
+        "x-graphserve-hop": "cold_start",
+        "x-graphserve-queue-wait-ms": "0.22"
+      },
+      {
+        "status": 200,
+        "x-graphserve-request-id": "171c61c4b2824f07b2d5310cdd5c7b3c",
+        "x-graphserve-worker": "a",
+        "x-graphserve-placement": "least_loaded",
+        "x-graphserve-hop": "cold_start",
+        "x-graphserve-queue-wait-ms": "0.17"
+      },
+      {
+        "status": 200,
+        "x-graphserve-request-id": "f13e089401734c76b5093e3bddc0480c",
+        "x-graphserve-worker": "a",
+        "x-graphserve-placement": "least_loaded",
+        "x-graphserve-hop": "cold_start",
+        "x-graphserve-queue-wait-ms": "0.2"
+      },
+      {
+        "status": 200,
+        "x-graphserve-request-id": "66d7abc78da044d7a9d0ec6f04e04904",
+        "x-graphserve-worker": "b",
+        "x-graphserve-placement": "least_loaded",
+        "x-graphserve-hop": "cold_start",
+        "x-graphserve-queue-wait-ms": "0.14"
+      }
+    ]
+  },
+  "finished_at": "2026-10-07T04:49:20.120669+00:00",
+  "passed": true,
+  "failures": []
+}
